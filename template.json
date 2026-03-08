@@ -1,0 +1,278 @@
+{
+  "Actor": {
+    "types": [
+      "Jogador",
+      "NPC"
+    ],
+
+    "templates": {
+      "informacoes": {
+        "nome": "",
+        "idade": 0,
+        "data-nascimento": "",
+        "data-atual": "",
+        "altura": 0,
+        "peso": 0,
+        "mao-dominante": "",
+        "dinheiro": 0,
+        "moradia": "",
+        "geas": ""
+      },
+      "status": {
+        "vida": {
+          "value": 100,
+          "max": 100,
+          "vidaPerdida": 0,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "estamina": {
+          "value": 20,
+          "max": 20,
+          "bonus": 0,
+          "estaminaPerdida": 0,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "psique": {
+          "value": 100,
+          "max": 100,
+          "psiquePerdida": 0,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "resist-pas": {
+          "value": 0,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "percep-pas": {
+          "value": 5,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "esquiva-pas": {
+          "value": 0,
+          "positivo": 0,
+          "negativo": 0
+        }
+      },
+      "atributos": {
+        "forca": {
+          "value": 0,
+          "dados": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "constituicao": {
+          "value": 0,
+          "dados": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "destreza": {
+          "value": 0,
+          "dados": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "mobilidade": {
+          "value": 0,
+          "dados": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "mente": {
+          "value": 0,
+          "dados": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "moral": {
+          "value": 0,
+          "dados": 1,
+          "positivo": 0,
+          "negativo": 0
+        }
+      },
+      "combate": {
+        "dano": {
+          "recebido": 0,
+          "estamina": 0,
+          "psique": 0,
+          "total": 0,
+          "porcentagem": 0
+        },
+        "recuperacao": {
+          "vida": 0,
+          "estamina": 0,
+          "psique": 0
+        }
+      },
+      "proeficiencias": {
+        "forca": {
+          "primeiro": {
+            "descricao": "Resistência: (+1 para Resistência Passiva por bônus)",
+            "ativo": false
+          },
+          "segundo": {
+            "descricao": "Golpe: (+5 de dano fixo por bônus)",
+            "ativo": false
+          },
+          "terceiro": {
+            "descricao": "Brutal: (Substitui alguns testes de lábia)",
+            "ativo": false
+          }
+        },
+        "constituicao": {
+          "primeiro": {
+            "descricao": "Resistência: (+2 para Resistência Passiva por bônus)",
+            "ativo": false
+          },
+          "segundo": {
+            "descricao": "Fôlego: (+10 para Estamina por bônus)",
+            "ativo": false
+          },
+          "terceiro": {
+            "descricao": "Saúde: (Dobre a Vida máxima, maior resistência a efeitos negativos)",
+            "ativo": false
+          }
+        },
+        "destreza": {
+          "primeiro": {
+            "descricao": "Reação: (+1 para Percepção Passiva por bônus, Utilizado como Iniciativa)",
+            "ativo": false
+          },
+          "segundo": {
+            "descricao": "Foco: (+2 de dano fixo por bônus)",
+            "ativo": false
+          },
+          "terceiro": {
+            "descricao": "Equilíbrio: (+5 para Estamina por bônus)",
+            "ativo": false
+          }
+        },
+        "mobilidade": {
+          "primeiro": {
+            "descricao": "Esquiva: (+1 ou +2 (em múltiplos de 3) para Esquiva Passiva por bônus)",
+            "ativo": false
+          },
+          "segundo": {
+            "descricao": "Furtividade: (Adicione o bônus para todas ações enquanto estiver furtivo)",
+            "ativo": false
+          },
+          "terceiro": {
+            "descricao": "Acrobacia: (Adicione o bônus para esquivas ao tentar ser movido a força)",
+            "ativo": false
+          }
+        },
+        "mente": {
+          "primeiro": {
+            "descricao": "Resistência: (Reduza o dano contra a Psique igual ao bônus total)",
+            "ativo": false
+          },
+          "segundo": {
+            "descricao": "Acadêmico: (+1 proficiência a cada 4 pontos em MENTE)",
+            "ativo": false
+          },
+          "terceiro": {
+            "descricao": "Percepção: (+2 para Percepção Passiva por bônus)",
+            "ativo": false
+          }
+        },
+        "moral": {
+          "primeiro": {
+            "descricao": "Lábia: (+50 de dinheiro inicial por bônus (Com 200 vc compra uma carroça com dois cavalos bons))",
+            "ativo": false
+          },
+          "segundo": {
+            "descricao": "Improvisação: (+1 em todos os testes a cada 2 pontos no bônus total)",
+            "ativo": false
+          },
+          "terceiro": {
+            "descricao": "Beleza: (+1 em Lábia ou Brutal para a cada 2 pontos no bônus total)",
+            "ativo": false
+          }
+        }
+      },
+      "equipamento": {
+        "esquerda": "",
+        "direita": "",
+        "cabeca": "",
+        "tronco": "",
+        "inferiores": "",
+        "rapido": ""
+      },
+      "inventario": "",
+      "mestica": {
+        "img": "",
+        "nome": "",
+        "idade": 0,
+        "forma": "",
+        "afinidade": "",
+        "peso": 0,
+        "energia": {
+          "value": 50,
+          "max": 50,
+          "recupera": 0,
+          "gasta": 0,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "canalizacao": {
+          "value": 0,
+          "max": 100,
+          "usa": 0,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "dano": "",
+        "peculiaridades": "",
+        "tecnicas": ""
+      },
+      "aparencia": {
+        "corNav": "#842121",
+        "corFundo": "#A02727",
+        "corTexto": "#ffffff",
+        "corBtn": "#842121",
+        "corBtnHover": "#b75454",
+        "corFundoInput": "#c1bfbf",
+        "corTextoInput": "#000000"
+      },
+      "demais_informacoes": {
+        "ate_aonde_iria": "",
+        "nascimento_mestica": "",
+        "anotacoes": ""
+      }
+    },
+
+    "Jogador": {
+      "templates" : [
+        "informacoes",
+        "status",
+        "atributos",
+        "combate",
+        "equipamento",
+        "inventario",
+        "mestica",
+        "aparencia",
+        "demais_informacoes"
+      ]
+    },
+
+    "NPC": {
+      "templates": [
+        "informacoes",
+        "status",
+        "atributos",
+        "combate",
+        "equipamento",
+        "inventario",
+        "mestica",
+        "aparencia",
+        "demais_informacoes"
+      ]
+    }
+
+  }
+}

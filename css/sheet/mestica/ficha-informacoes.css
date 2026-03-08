@@ -1,0 +1,82 @@
+.direita {
+    height: 100%;
+    width: 100%;
+    grid-row: span 2;
+    box-sizing: border-box;
+    padding: 1%;
+}
+.esquerda {
+    height: 100%;
+    width: 100%;
+    grid-row: span 2;
+    box-sizing: border-box;
+    padding: 2%;
+}
+.esquerda img {
+    height: 34%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.btn-aplicar {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.informacoes-mestica {
+    height: 65%;
+    box-sizing: border-box;
+}
+.campo-info-mestica {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 5px;    
+}
+.label-info-mestica {
+    width: 75px;
+}
+.input-info-mestica {
+    width: 109px;
+    text-align: center;
+}
+.label-mestica {
+    width: 95px;
+}
+.input-mestica {
+    width: 87px;
+    text-align: center;
+}
+
+.peculiaridades {
+    height: 40%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tecnicas {
+    height: 60%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.text-peculiaridades, .text-tecnicas {
+    width: 100%;
+    resize: none;
+    overflow: auto;
+    background-color: var(--cor-fundo-input);
+    font-size: 13px;
+    font-family: "Inter", sans-serif;
+}
+
+.text-peculiaridades {
+    height: 85%;
+}
+
+.text-tecnicas {
+    height: 90%;
+}

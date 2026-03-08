@@ -1,0 +1,77 @@
+.inventario-equipamento {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.equipamento {
+    height: 23%;
+    box-sizing: border-box;
+    display: block;
+    align-items: center;
+    padding: 5px;
+}
+.inventario {
+    height: 77%;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.campo-equipamento {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 5px;
+    column-gap: 5px;
+}
+.label-equipamento {
+    width: 100%;
+    font-size: 12px;
+}
+.input-equipamento {
+    width: 100%;
+}
+.campo-mao-esquerda {
+    width: 16%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.campo-mao-direita {
+    width: 16%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.campo-cabeca {
+    width: 16%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.campo-tronco {
+    width: 16%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.campo-membros-inferiores {
+    width: 20%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+.campo-acesso-rapido {
+    width: 16%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.campo-inventario {
+    height: 89%;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+}

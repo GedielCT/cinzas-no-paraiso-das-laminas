@@ -1,0 +1,45 @@
+{
+    "id": "cinzas-no-paraiso-das-laminas",
+    "title": "Cinzas no Paraíso das Lâminas",
+    "description": "Um RPG sobre laminas, linguagem somente para PT-BR.",
+    "version": "1.03.26",
+    "authors": [
+        {
+            "name": "Assista"
+        },
+        {
+            "name": "Gediel"
+        }
+    ],
+    "compatibility": {
+        "minimum": "12",
+        "verified": "12.331",
+        "maximum": "13"
+    },
+    "languages": [
+        {
+            "lang": "pt-BR",
+            "name": "Português (Brasil)",
+            "path": "lang/pt-BR.json"
+        }
+    ],
+    "esmodules": [
+        "cinzas-no-paraiso-das-laminas.js"
+    ],
+    "scripts": [
+        
+    ],
+    "styles": [
+        "css/cinzas-no-paraiso-das-laminas.css",
+        "css/sheet/ficha-informacoes.css",
+        "css/sheet/proeficiencias.css",
+        "css/sheet/equipamento.css",
+        "css/sheet/mestica/ficha-informacoes.css",
+        "css/sheet/alteracoes/alteracoes.css",
+        "css/sheet/demais-informacoes/demais-informacoes.css"
+    ],
+    "grid": {
+        "distance": 5,
+        "units": "m"
+    }
+}

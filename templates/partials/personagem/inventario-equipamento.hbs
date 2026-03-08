@@ -1,0 +1,35 @@
+<div class="equipamento">
+    <h1 class="titulo">EQUIPAMENTO</h1>
+
+    <div class="campo-equipamento">
+        <div class="campo-mao-esquerda">
+            <label class="label-equipamento">Mão Esquerda:</label>
+            <input id="equipamento-esquerda" class="input-equipamento" value="{{actor.system.equipamento.esquerda}}"/>
+        </div>
+        <div class="campo-mao-direita">
+            <label class="label-equipamento">Mão Direita:</label>
+            <input id="equipamento-direita" class="input-equipamento" value="{{actor.system.equipamento.direita}}"/>
+        </div>
+        <div class="campo-cabeca">
+            <label class="label-equipamento">Cabeça:</label>
+            <input id="equipamento-cabeca" class="input-equipamento" value="{{actor.system.equipamento.cabeca}}"/>
+        </div>
+        <div class="campo-tronco">
+            <label class="label-equipamento">Tronco:</label>
+            <input id="equipamento-tronco" class="input-equipamento" value="{{actor.system.equipamento.tronco}}"/>
+        </div>
+        <div class="campo-membros-inferiores">
+            <label class="label-equipamento">Membros Inferiores:</label>
+            <input id="equipamento-inferiores" class="input-equipamento" value="{{actor.system.equipamento.inferiores}}"/>
+        </div>
+        <div class="campo-acesso-rapido">
+            <label class="label-equipamento">Acesso Rápido:</label>
+            <input id="equipamento-rapido" class="input-equipamento" value="{{actor.system.equipamento.rapido}}"/>
+        </div>
+    </div>
+</div>
+<div class="inventario">
+    <h1 class="titulo">INVENTARIO</h1>
+
+    <textarea id="inventario" class="campo-inventario">{{actor.system.inventario}}</textarea>
+</div>

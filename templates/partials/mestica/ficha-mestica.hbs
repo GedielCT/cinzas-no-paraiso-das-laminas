@@ -1,0 +1,68 @@
+<div class="esquerda">
+    <img id="img-mestica" src="{{#if actor.system.mestica.img}}{{actor.system.mestica.img}}{{else}}{{imgMesticaDefault}}{{/if}}" data-edit="system.mestica.img" title="{{actor.name}}"/>
+
+    <div class="informacoes-mestica">
+        <h1 class="titulo">INFORMAÇÕES  MESTIÇA</h1>
+        <div class="campo-info-mestica">
+            <label class="label-info-mestica">NOME:</label>
+            <input id="nome-mestica" class="input-info-mestica" value="{{actor.system.mestica.nome}}"/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-info-mestica">IDADE:</label>
+            <input id="idade-mestica" class="input-info-mestica" value="{{actor.system.mestica.idade}}"/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-info-mestica">FORMA:</label>
+            <input  id="forma" class="input-info-mestica" value="{{actor.system.mestica.forma}}"/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-info-mestica">AFINIDADE:</label>
+            <select id="afinidade" class="input-info-mestica">
+                <option value="INTERNA" {{#if (eq actor.system.mestica.afinidade "INTERNA")}}selected{{/if}}>INTERNA</option>
+                <option value="EXTERNA" {{#if (eq actor.system.mestica.afinidade "EXTERNA")}}selected{{/if}}>EXTERNA</option>
+                <option value="HÍBRIDA" {{#if (eq actor.system.mestica.afinidade "HÍBRIDA")}}selected{{/if}}>HÍBRIDA</option>
+            </select>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-info-mestica">PESO:</label>
+            <input id="peso-mestica" class="input-info-mestica" value="{{actor.system.mestica.peso}}"/>
+        </div>
+        <h1 class="titulo">STATUS</h1>
+        <div class="campo-info-mestica">
+            <label class="label-mestica">ENERGIA:</label>
+            <input id="energia" class="input-mestica" value="{{actor.system.mestica.energia.value}} / {{actor.system.mestica.energia.max}}" disabled/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-mestica">CANALIZAÇÃO:</label>
+            <input id="canalizacao" class="input-mestica" value="{{actor.system.mestica.canalizacao.value}} / {{actor.system.mestica.canalizacao.max}}" disabled/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-mestica">DANO:</label>
+            <input id="dano-mestica" class="input-mestica" value="{{actor.system.mestica.dano}}"/>
+        </div>
+        <h1 class="titulo">ALGUMA COISA</h1>
+        <div class="campo-info-mestica">
+            <label class="label-mestica">ENERGIA - :</label>
+            <input id="menos-energia" class="input-mestica" value="{{actor.system.mestica.energia.gasta}}"/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-mestica">ENERGIA + :</label>
+            <input id="mais-energia" class="input-mestica" value="{{actor.system.mestica.energia.recupera}}"/>
+        </div>
+        <div class="campo-info-mestica">
+            <label class="label-mestica">CANALIZAÇÃO:</label>
+            <input id="mais-canalizacao" class="input-mestica" value="{{actor.system.mestica.canalizacao.usa}}"/>
+        </div>
+        <button id="zera-canalizacao" class="btn-aplicar">Zera Canalização</button>
+    </div>
+</div>
+<div class="direita">
+    <div class="peculiaridades">
+        <h1 class="titulo">PECULIARIDADES</h1>
+        <textarea id="text-peculiaridades" class="text-peculiaridades">{{actor.system.mestica.peculiaridades}}</textarea>
+    </div>
+    <div class="tecnicas">
+        <h1 class="titulo">TÉCNICAS</h1>
+        <textarea id="text-tecnicas" class="text-tecnicas">{{actor.system.mestica.tecnicas}}</textarea>
+    </div>
+</div>

@@ -1,0 +1,200 @@
+.ficha-informacoes {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 26% 26% 24% 24%;
+    grid-template-rows: 45% 55%;
+    padding: 5px;
+}
+.informacoes-gerais {
+    height: 100%;
+    width: 100%;
+    grid-column: span 5;
+    display: flex;
+    flex-flow: wrap;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+.campo-nome, .campo-idade-personagem, .campo-data-nascimento-personagem, .campo-altura, .campo-peso-personagem, .campo-dinheiro, .campo-data-atual, .campo-moradia, .campo-geas, .campo-data-nascimento-personagem, .campo-mao-dominante, .campo-data-atual {
+    height: 30px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 5px;
+}
+#titulo-informacoes {
+    width: 100%;
+    margin: 2px;
+}
+.campo-subtitulo {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+.campo-nome  {
+    width: 100%;
+}
+#label-nome-personagem {
+    width: 7.5%;
+}
+#input-nome-personagem {
+    width: 92.5%;
+}
+.campo-data-nascimento-personagem {
+    width: 46%;
+}
+#label-data-nascimento-personagem {
+    width: 49%;
+}
+#input-data-nascimento-personagem {
+    width: 51%;
+}
+.campo-idade-personagem {
+    width: 18%;
+}
+#label-idade-personagem {
+    width: 42%;
+}
+#input-idade-personagem {
+    width: 58%;
+}
+.campo-altura {
+    width: 18%;
+}
+#label-altura {
+    width: 46%;
+}
+#input-altura {
+    width: 54%;
+}
+.campo-peso-personagem {
+    width: 18%;
+}
+#label-peso-personagem {
+    width: 37%;
+}
+#input-peso-personagem {
+    width: 63%;
+}
+.campo-data-atual {
+    width: 36%;
+}
+#label-data-atual {
+    width: 36%;
+}
+#input-data-atual {
+    width: 64%;
+}
+.campo-dinheiro {
+    width: 27%;
+}
+#label-dinheiro {
+    width: 39%;
+}
+#input-dinheiro {
+    width: 61%;
+}
+.campo-mao-dominante {
+    width: 37%;
+}
+#label-mao-dominante {
+    width: 50%;
+}
+#input-mao-dominante {
+    width: 50%;
+}
+.campo-geas {
+    width: 100%;
+}
+#label-geas {
+    width: 6.5%;
+}
+#input-geas {
+    width: 93.5%;
+}
+
+/* Unificar aparência dos inputs com type (date, password) ao resto dos campos */
+.informacoes-gerais input[type="date"],
+.informacoes-gerais input[type="password"],
+.informacoes-gerais input[type="text"]#input-geas {
+    height: 20px;
+    border-radius: 0;
+    padding: 2px 4px;
+    box-sizing: border-box;
+}
+
+.status {
+    display: grid;
+    grid-template-rows: 15% 85%;
+}
+.campo-status {
+    height: 25px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 2px;
+}
+.label-status {
+    width: 50%;
+}
+.input-status {
+    width: 50%;
+}
+
+.atributo {
+    display: grid;
+    grid-template-rows: 15% 85%;
+}
+.campo-atributo {
+    height: 25px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 2px;
+}
+.label-dado {
+    width: 15%;
+}
+.label-atributo {
+    width: 57%;
+}
+.input-atributo {
+    width: 28%;
+}
+
+.combate {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 15% 85%;
+}
+#titulo-combate {
+    grid-column: span 2;
+}
+.campo-combate {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 2px;
+}
+.btn-subtitulo {
+    width: 20%;
+    height: 100%;
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.label-combate {
+    width: 45%;
+    box-sizing: border-box;
+}
+.input-combate {
+    width: 55%;
+    box-sizing: border-box;
+}

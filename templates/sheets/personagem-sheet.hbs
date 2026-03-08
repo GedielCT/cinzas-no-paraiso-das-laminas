@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="../../css/cinzas-no-paraiso-das-laminas.css"/>
+<link rel="stylesheet" href="../../css/sheet/ficha-informacoes.css"/>
+<link rel="stylesheet" href="../../css/sheet/proeficiencias.css"/>
+<link rel="stylesheet" href="../../css/sheet/equipamento.css"/>
+<link rel="stylesheet" href="../../css/sheet/mestica/ficha-informacoes.css"/>
+<link rel="stylesheet" href="../../css/sheet/alteracoes/alteracoes.css"/>
+<link rel="stylesheet" href="../../css/sheet/demais-informacoes/demais-informacoes.css"/>
+
+<nav class="nav-ficha">
+    <a id="ficha-personagem" class="nav-button">Ficha Personagem</a>
+    <a id="ficha-mestica" class="nav-button">Ficha Mestiça</a>
+    <a id="ficha-demais-informacoes" class="nav-button">Informações</a>
+    <a id="ficha-alteracoes" class="nav-button">Alterações</a>
+</nav>
+<section class="section-ficha">
+    <form class="ficha" autocomplete="off">
+        <div class="ficha-personagem" style="display: {{#if showFichaPersonagem}}grid{{else}}none{{/if}};">
+            {{> "systems/cinzas-no-paraiso-das-laminas/templates/partials/personagem/ficha-personagem.hbs"}}
+        </div>
+        <div class="ficha-mestica" style="display: {{#if showFichaMestica}}grid{{else}}none{{/if}};">
+            {{> "systems/cinzas-no-paraiso-das-laminas/templates/partials/mestica/ficha-mestica.hbs"}}
+        </div>
+        <div class="ficha-demais-informacoes" style="display: {{#if showDemaisInformacoes}}grid{{else}}none{{/if}};">
+            {{> "systems/cinzas-no-paraiso-das-laminas/templates/partials/demais-informacoes/ficha-demais-informacoes.hbs"}}
+        </div>
+        <div class="ficha-alteracoes" style="display: {{#if showFichaAlteracoes}}block{{else}}none{{/if}};">
+            {{> "systems/cinzas-no-paraiso-das-laminas/templates/partials/alteracoes/ficha-alteracoes.hbs"}}
+        </div>
+    </form>
+</section>

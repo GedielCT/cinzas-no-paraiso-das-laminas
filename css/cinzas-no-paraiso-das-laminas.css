@@ -1,0 +1,104 @@
+.window-app .window-content {
+    display: block;
+    padding: 0px;
+    --cor-nav: #842121;
+    --cor-fundo: #A02727;
+    --cor-fundo-input: #c1bfbf;
+    --cor-texto: #ffffff;
+    --cor-texto-input: #000000;
+    --cor-btn-hover: #b75454;
+    --cor-btn: #842121;
+}
+
+.window-app .window-resizable-handle {
+    display: none;
+    scrollbar-color: var(--cor-nav);
+}
+
+.nav-ficha {
+    height: 5%;
+    width: 100%;
+    background-color: var(--cor-nav);
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.nav-button {
+    height: 100%;
+    width: 120px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+}
+.nav-button:hover {
+    background-color: var(--cor-btn-hover);
+}
+
+.section-ficha {
+    height: 95%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ficha {
+    height: 100%;
+    width: 100%;
+    background-color: var(--cor-fundo);
+}
+
+.ficha-personagem, .ficha-mestica {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 50% 50%;
+}
+
+.foto-proeficiencias {
+    grid-row: span 2;
+}
+
+.titulo {
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    border-color: var(--cor-nav);
+}
+
+.subtitulo {
+    font-size: 13px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    border-color: var(--cor-nav);
+}
+
+.ficha input, .ficha textarea {
+    background-color: var(--cor-fundo-input);
+    border: none;
+    color: var(--cor-texto-input);
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+}
+
+.ficha label , .ficha h1, .ficha h2, .nav-ficha a{
+    color: var(--cor-texto);
+}
+
+.ficha button {
+    color: var(--cor-texto);
+    background-color: var(--cor-btn);
+    border: none;
+    padding: 0px;
+}

@@ -1,0 +1,199 @@
+<!-- PARTE DAS INFORMAÇÕES -->    
+<div class="informacoes-gerais">
+    <h1 id="titulo-informacoes" class="titulo">INFORMAÇÕES GERAIS</h1>
+    <!-- CAMPO NOME -->
+    <div class="campo-nome">
+        <label id="label-nome-personagem">Nome:</label>
+        <input id="input-nome-personagem" class="input" value="{{actor.system.informacoes.nome}}">
+    </div>
+    <!-- CAMPO DATA DE NASCIMENTO -->        
+    <div class="campo-data-nascimento-personagem">
+        <label id="label-data-nascimento-personagem">Data de Nascimento:</label>
+        <input id="input-data-nascimento-personagem" type="date" class="input" value="{{actor.system.informacoes.data-nascimento}}">
+    </div>
+    <!-- CAMPO IDADE -->        
+    <div class="campo-idade-personagem">
+        <label id="label-idade-personagem">Idade:</label>
+        <input id="input-idade-personagem" class="input" value="{{actor.system.informacoes.idade}}">
+    </div>        
+    <!-- CAMPO ALTURA -->
+    <div class="campo-altura">
+        <label id="label-altura">Altura:</label>
+        <input id="input-altura" class="input" value="{{actor.system.informacoes.altura}}">
+    </div>
+    <!-- CAMPO PESO -->
+    <div class="campo-peso-personagem">
+        <label id="label-peso-personagem">Peso:</label>
+        <input id="input-peso-personagem" class="input" value="{{actor.system.informacoes.peso}}">
+    </div>    
+    <!-- CAMPO DATA ATUAL -->
+    <div class="campo-data-atual">
+        <label id="label-data-atual">Data Atual:</label>
+        <input id="input-data-atual" type="date" class="input" value="{{actor.system.informacoes.data-atual}}">
+    </div>
+    <!-- CAMPO DINHEIRO -->
+    <div class="campo-dinheiro">
+        <label id="label-dinheiro">Dinheiro:</label>
+        <input id="input-dinheiro" class="input" value="{{actor.system.informacoes.dinheiro}}">
+    </div>
+    <!-- CAMPO MÃO DOMINANTE -->
+    <div class="campo-mao-dominante">
+        <label id="label-mao-dominante">Mão Dominante:</label>
+        <input id="input-mao-dominante" class="input" value="{{actor.system.informacoes.mao-dominante}}">
+    </div>  
+    <!-- CAMPO GEAS -->
+    <div class="campo-geas">
+        <label id="label-geas">Geas:</label>
+        <input id="input-geas" class="input" value="{{actor.system.informacoes.geas}}" type="password">
+    </div>
+</div>
+<!-- FIM DAS INFORMAÇÕES -->
+<!-- INICIO STATUS -->
+<div class="status">        
+    <h1 class="titulo">STATUS</h1>
+    <div class="geral-status">
+        <!-- CAMPO VIDA -->
+        <div id="vida" class="campo-status">
+            <label id="label-vida" class="label-status">Vida:</label>
+            <input id="input-vida" class="input-status" value="{{actor.system.status.vida.value}} / {{actor.system.status.vida.max}}" disabled/>
+        </div>
+        <!-- CAMPO ESTAMINA -->
+        <div id="estamina" class="campo-status">
+            <label id="label-estamina" class="label-status">Estamina:</label>
+            <input id="input-estamina" class="input-status" value="{{actor.system.status.estamina.value}} / {{actor.system.status.estamina.max}}" disabled/>
+        </div>
+        <!-- CAMPO PSIQUE -->
+        <div id="psique" class="campo-status">
+            <label id="label-psique" class="label-status">Psique:</label>
+                <input id="input-psique" class="input-status" value="{{actor.system.status.psique.value}} / {{actor.system.status.psique.max}}" disabled/>
+        </div>
+        <!-- CAMPO RESISTENCIA PASSIVA -->
+        <div id="resist-pas" class="campo-status">
+            <label id="label-resist-pas" class="label-status">Resist. Pas.:</label>
+            <input id="input-resist-pas" class="input-status" value="{{actor.system.status.resist-pas.value}}" disabled/>
+        </div>
+        <!-- CAMPO PERCEPÇÃO PASSIVA -->
+        <div id="percep-pas" class="campo-status">
+            <label id="label-percep-pas" class="label-status">Perce. Pas.:</label>
+            <input id="input-percep-pas" class="input-status" value="{{actor.system.status.percep-pas.value}}" disabled/>
+        </div>
+        <!-- CAMPO ESQUIVA PASSIVA -->
+        <div id="esquiva-pas" class="campo-status">
+            <label id="label-esquiva-pas" class="label-status">Esqui. Pas.:</label>
+            <input id="input-esquiva-pas" class="input-status" value="{{actor.system.status.esquiva-pas.value}}" disabled/>
+        </div>
+    </div>
+</div>
+<!-- FIM STATUS -->
+<!-- INICIO DOS ATRIBUTOS -->
+<div class="atributo">
+    <h1 class="titulo">ATRIBUTOS</h1>
+    <div class="geral-atributo">
+        <!-- CAMPO FORÇA -->        
+        <div id="forca" class="campo-atributo">
+            <label id="dado-forca" class="label-dado">({{actor.system.atributos.forca.dados}})</label>
+            <label id="label-forca" class="label-atributo">Força:</label>
+            <input id="input-forca" class="input-atributo" value="{{actor.system.atributos.forca.value}}"> 
+        </div>
+        <!-- CAMPO CONSTITUIÇÃO -->
+        <div id="constituicao" class="campo-atributo">
+            <label id="dado-constituicao" class="label-dado">({{actor.system.atributos.constituicao.dados}})</label>
+            <label id="label-constituicao" class="label-atributo">Constituição:</label>
+            <input id="input-constituicao" class="input-atributo" value="{{actor.system.atributos.constituicao.value}}"/>
+        </div>
+        <!-- CAMPO DESTREZA -->        
+        <div id="destreza" class="campo-atributo">
+            <label id="dado-destreza" class="label-dado">({{actor.system.atributos.destreza.dados}})</label>
+            <label id="label-destreza" class="label-atributo">Destreza:</label>
+            <input id="input-destreza" class="input-atributo" value="{{actor.system.atributos.destreza.value}}"/>
+        </div>
+        <!-- CAMPO AGILIDADE -->        
+        <div id="mobilidade" class="campo-atributo">
+            <label id="dado-mobilidade" class="label-dado">({{actor.system.atributos.mobilidade.dados}})</label>
+            <label id="label-mobilidade" class="label-atributo">Mobilidade:</label>
+            <input id="input-mobilidade" class="input-atributo" value="{{actor.system.atributos.mobilidade.value}}">
+        </div>
+        <!-- CAMPO MENTE-->        
+        <div id="mente" class="campo-atributo">
+            <label id="dado-mente" class="label-dado">({{actor.system.atributos.mente.dados}})</label>
+            <label id="label-mente" class="label-atributo">Mente:</label>
+            <input id="input-mente" class="input-atributo" value="{{actor.system.atributos.mente.value}}">
+        </div>
+        <!-- CAMPO MORAL -->        
+        <div id="moral" class="campo-atributo">
+            <label id="dado-moral" class="label-dado">({{actor.system.atributos.moral.dados}})</label>
+            <label id="label-moral" class="label-atributo">Moral:</label>
+            <input id="input-moral" class="input-atributo" value="{{actor.system.atributos.moral.value}}">
+        </div>
+    </div>
+</div>
+<!-- FIM DOS ATRIBUTOS -->
+<!-- INICIO COMBATE -->
+<div class="combate">
+    <h1 id="titulo-combate" class="titulo">COMBATE</h1>
+    <div class="geral-dano">
+        <!-- SUBTITULO DANO -->
+        <div id="subtitulo-dano" class="campo-subtitulo">
+            <h2 class="subtitulo">DANO</h2>
+            <button id="btn-dano" class="btn-subtitulo">🗑️</button>
+        </div>
+        <!-- CAMPO RECEBIDO -->
+        <div id="recebido" class="campo-combate">
+            <label id="label-dano-recebido" class="label-combate">Recebido:</label>
+            <input id="input-dano-recebido" class="input-combate" value="{{actor.system.combate.dano.recebido}}"/>
+        </div>
+        <!-- CAMPO ESTAMINA -->
+        <div id="estamina" class="campo-combate">
+            <label id="label-dano-estamina" class="label-combate">Estamina:</label>
+            <input id="input-dano-estamina" class="input-combate" value="{{actor.system.combate.dano.estamina}}"/>
+        </div>
+        <!-- CAMPO PSIQUE -->
+        <div id="psique" class="campo-combate">
+            <label id="label-dano-psique" class="label-combate">Psique:</label>
+            <input id="input-dano-psique" class="input-combate" value="{{actor.system.combate.dano.psique}}"/>
+        </div>
+        <!-- CAMPO TOTAL -->
+        <div id="total" class="campo-combate">
+            <label id="label-dano-total" class="label-combate">Total:</label>
+            <input id="input-dano-total" class="input-combate" value="{{actor.system.combate.dano.total}}" disabled/>
+        </div>
+        <!-- CAMPO PORCENTAGEM -->
+        <div id="porcentagem" class="campo-combate">
+            <label id="label-dano-porcentagem" class="label-combate">% DANO:</label>
+            <input id="input-dano-porcentagem" class="input-combate" value="{{actor.system.combate.dano.porcentagem}}" disabled/>
+        </div>
+    </div>
+    <div class="geral-cura">
+        <!-- SUBTITULO OUTRO-->
+        <div id="subtitulo-outro" class="campo-subtitulo">
+            <h2 class="subtitulo">RECUPERAR</h2>
+            <button id="btn-outro" class="btn-subtitulo" style="display: none;">🗑️</button>
+        </div>
+        <!-- CAMPO CURA -->
+        <div id="cura-vida" class="campo-combate">
+            <label id="label-cura-vida" class="label-combate">Vida:</label>
+            <input id="input-cura-vida" class="input-combate" value="{{actor.system.combate.recuperacao.vida}}"/>
+        </div>
+        <!-- CAMPO ESTAMINA -->
+        <div id="cura-estamina" class="campo-combate">
+            <label id="label-cura-estamina" class="label-combate">Estamina:</label>
+            <input id="input-cura-estamina" class="input-combate" value="{{actor.system.combate.recuperacao.estamina}}"/>
+        </div>
+        <!-- CAMPO CURA -->
+        <div id="cura-psique" class="campo-combate">
+            <label id="label-cura-psique" class="label-combate">Psique:</label>
+            <input id="input-cura-psique" class="input-combate" value="{{actor.system.combate.recuperacao.psique}}"/>
+        </div>
+        <!-- SUBTITULO RODADA-->
+        <div id="subtitulo-rodada" class="campo-subtitulo">
+            <h2 class="subtitulo">RODADA</h2>
+            <button id="btn-rodada" class="btn-subtitulo">🗑️</button>
+        </div>
+        <!-- CAMPO RODADA -->
+        <div id="rodada" class="campo-combate">
+            <label id="label-rodada" class="label-combate">Rodada: </label>
+            <input id="input-rodada" class="input-combate"/>
+        </div>   
+    </div>
+</div>
+<!-- FIM DO COMBATE -->

@@ -1,0 +1,46 @@
+.ficha-demais-informacoes {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20% 80%;
+    box-sizing: border-box;
+    padding-top: 5px;
+}
+
+.campo-nascimento-ate {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.campo-nascimento-ate textarea {
+    width: 97%;
+    height: 100%;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
+
+}
+
+.campo-anotacoes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    grid-column: span 2;
+}
+
+.campo-anotacoes textarea {
+    width: 98%;
+    height: 90%;
+    resize: none;
+    overflow: auto;
+    box-sizing: border-box;
+
+}
