@@ -560,7 +560,7 @@ export default class jogadorSheet extends ActorSheet {
                         percepPas = resistPadrao + (Math.trunc(menteValue / 2) * 2);
                     } else percepPas = 5;
                     
-                    updateObj['system.status.percep-pas'] = percepPas;
+                    updateObj['system.status.percep-pas.value'] = percepPas;
                 }
 
                 //CALCULO ESQUIVA PASSIVA
@@ -577,7 +577,7 @@ export default class jogadorSheet extends ActorSheet {
                         esquivaPas = esquivaPadrao + Math.trunc(mobilidadeValue / 2);
                     } else esquivaPas = 0;
                     
-                    updateObj['system.status.esquiva-pas'] = esquivaPas;
+                    updateObj['system.status.esquiva-pas.value'] = esquivaPas;
                 }
 
                 // CALCULO ESTAMINA (constituição.segundo Fôlego: +10 por bônus | destreza.terceiro Equilíbrio: +5 por bônus)
@@ -738,7 +738,7 @@ export default class jogadorSheet extends ActorSheet {
                         percepPas = (percepPadrao + (Math.trunc(menteValue / 2) * 2)) + positivo - negativo;
                     } else percepPas = (percepPadrao + positivo - negativo);
                     
-                    updateObj['system.status.percep-pas'] = percepPas;
+                    updateObj['system.status.percep-pas.value'] = percepPas;
                 }
 
                 // CALCULO ESQUIVA
@@ -764,7 +764,7 @@ export default class jogadorSheet extends ActorSheet {
                         console.log('teste 5')
                     } else esquivaPas = (0 + positivo - negativo);
                     
-                    updateObj['system.status.esquiva-pas'] = esquivaPas;
+                    updateObj['system.status.esquiva-pas.value'] = esquivaPas;
                 }
 
                 // CALCULO ESTAMINA (constituição.segundo Fôlego: +10 por bônus | destreza.terceiro Equilíbrio: +5 por bônus)
@@ -1214,7 +1214,104 @@ export default class jogadorSheet extends ActorSheet {
 
             const updatePath = fieldMap[inputId];
             if (updatePath) {
-                this.actor.update({ [updatePath]: value });
+                const updateObj = { [updatePath]: value };
+
+                // Recalculate passives if attribute changed
+                if (inputId === "input-forca" || inputId === "input-constituicao") {
+                    // Recalculate resist-pas
+                    const resistPadrao = 5;
+                    let novaResistForca = this.actor.system.proeficiencias?.forca?.primeiro?.ativo || false;
+                    let novaResistConstituicao = this.actor.system.proeficiencias?.constituicao?.primeiro?.ativo || false;
+                    let positivo = this.actor.system.status?.["resist-pas"]?.positivo || 0;
+                    let negativo = this.actor.system.status?.["resist-pas"]?.negativo || 0;
+                    
+                    const forcaValue = inputId === "input-forca" ? parseInt(value, 10) || 0 : this.actor.system.atributos.forca.value || 0;
+                    const constituicaoValue = inputId === "input-constituicao" ? parseInt(value, 10) || 0 : this.actor.system.atributos.constituicao.value || 0;
+                    let resistPas = resistPadrao;
+
+                    if (novaResistForca && novaResistConstituicao) {
+                        resistPas = (resistPadrao + (Math.trunc(forcaValue / 2)) + ((Math.trunc(constituicaoValue / 2) * 2))) + positivo - negativo;
+                    } else if (novaResistForca) {
+                        resistPas = (resistPadrao + Math.trunc(forcaValue / 2)) + positivo - negativo;
+                    } else if (novaResistConstituicao) {
+                        resistPas = (resistPadrao + (Math.trunc(constituicaoValue / 2) * 2)) + positivo - negativo;
+                    } else {
+                        resistPas = 0 + positivo - negativo;
+                    }
+
+                    updateObj['system.status.resist-pas.value'] = resistPas;
+                }
+
+                if (inputId === "input-destreza" || inputId === "input-mente") {
+                    // Recalculate percep-pas
+                    const percepPadrao = 5;
+                    let percepDestreza = this.actor.system.proeficiencias?.destreza?.primeiro?.ativo || false;
+                    let percepMente = this.actor.system.proeficiencias?.mente?.terceiro?.ativo || false;
+                    let positivo = this.actor.system.status?.["percep-pas"]?.positivo || 0;
+                    let negativo = this.actor.system.status?.["percep-pas"]?.negativo || 0;
+                    
+                    const destrezaValue = inputId === "input-destreza" ? parseInt(value, 10) || 0 : this.actor.system.atributos.destreza.value || 0;
+                    const menteValue = inputId === "input-mente" ? parseInt(value, 10) || 0 : this.actor.system.atributos.mente.value || 0;
+                    let percepPas = percepPadrao;
+
+                    if (percepDestreza && percepMente) {
+                        percepPas = (percepPadrao + (Math.trunc(destrezaValue / 2)) + ((Math.trunc(menteValue / 2) * 2))) + positivo - negativo;
+                    } else if (percepDestreza) {
+                        percepPas = (percepPadrao + Math.trunc(destrezaValue / 2)) + positivo - negativo;
+                    } else if (percepMente) {
+                        percepPas = (percepPadrao + (Math.trunc(menteValue / 2) * 2)) + positivo - negativo;
+                    } else percepPas = (percepPadrao + positivo - negativo);
+                    
+                    updateObj['system.status.percep-pas.value'] = percepPas;
+                }
+
+                if (inputId === "input-mobilidade") {
+                    // Recalculate esquiva-pas
+                    const esquivaPadrao = 6;
+                    let positivo = this.actor.system.status?.["esquiva-pas"]?.positivo || 0;
+                    let negativo = this.actor.system.status?.["esquiva-pas"]?.negativo || 0;
+                    let esquivaMobilidade = this.actor.system.proeficiencias?.mobilidade?.primeiro?.ativo || false;
+                    const mobilidadeValue = parseInt(value, 10) || 0;
+                    let esquivaPas = esquivaPadrao;
+
+                    if ((esquivaMobilidade) && (mobilidadeValue % 3 === 0) && (mobilidadeValue >= 6)) {
+                        esquivaPas = (esquivaPadrao + (Math.trunc(mobilidadeValue / 2) * 2)) + positivo - negativo;
+                    } else if (esquivaMobilidade) {
+                        esquivaPas = (esquivaPadrao + Math.trunc(mobilidadeValue / 2)) + positivo - negativo;
+                    } else esquivaPas = (0 + positivo - negativo);
+                    
+                    updateObj['system.status.esquiva-pas.value'] = esquivaPas;
+                }
+
+                if (inputId === "input-constituicao" || inputId === "input-destreza") {
+                    // Recalculate estamina
+                    const estaminaBase = 20;
+                    
+                    let constituicaoFolego = this.actor.system.proeficiencias?.constituicao?.segundo?.ativo || false;
+                    let destrezaEquilibrio = this.actor.system.proeficiencias?.destreza?.terceiro?.ativo || false;
+                    
+                    const constituicaoValue = inputId === "input-constituicao" ? parseInt(value, 10) || 0 : this.actor.system.atributos?.constituicao?.value || 0;
+                    const destrezaValue = inputId === "input-destreza" ? parseInt(value, 10) || 0 : this.actor.system.atributos?.destreza?.value || 0;
+
+                    let bonusEstamina = 0;
+                    if (constituicaoFolego && destrezaEquilibrio) {
+                        bonusEstamina = (Math.trunc(constituicaoValue / 2) * 10) + (Math.trunc(destrezaValue / 2) * 5);
+                    } else if (constituicaoFolego) {
+                        bonusEstamina = Math.trunc(constituicaoValue / 2) * 10;
+                    } else if (destrezaEquilibrio) {
+                        bonusEstamina = Math.trunc(destrezaValue / 2) * 5;
+                    }
+
+                    const estaminaMax = estaminaBase + bonusEstamina;
+                    const estaminaPerdida = this.actor.system.status?.estamina?.estaminaPerdida ?? 0;
+                    const estaminaValue = Math.max(0, estaminaMax - estaminaPerdida);
+
+                    updateObj['system.status.estamina.bonus'] = bonusEstamina;
+                    updateObj['system.status.estamina.max'] = estaminaMax;
+                    updateObj['system.status.estamina.value'] = estaminaValue;
+                }
+
+                this.actor.update(updateObj);
             }
         });
     }
