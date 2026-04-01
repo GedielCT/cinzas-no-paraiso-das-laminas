@@ -640,7 +640,6 @@ export default class jogadorSheet extends ActorSheet {
     setupAutoSave(html) {
         // Auto-save on input change
         html.find("input, select, textarea").on("change", (event) => {
-            this._restoreFocusId = document.activeElement?.id || null;
             const element = $(event.target);
             const inputId = element.attr("id");
             const isCheckbox = element.attr("type") === "checkbox";
@@ -679,8 +678,8 @@ export default class jogadorSheet extends ActorSheet {
                     // se é o outro atributo, usa o estado atual
                     let novaResistForca = this.actor.system.proeficiencias?.forca?.primeiro?.ativo || false;
                     let novaResistConstituicao = this.actor.system.proeficiencias?.constituicao?.primeiro?.ativo || false;
-                    let positivo = this.actor.system.status?.resist-pas?.positivo || 0;
-                    let negativo = this.actor.system.status?.resist-pas?.negativo || 0;
+                    let positivo = this.actor.system.status?.["resist-pas"]?.positivo || 0;
+                    let negativo = this.actor.system.status?.["resist-pas"]?.negativo || 0;
                     
                     // Atualiza com o novo valor do checkbox que foi alterado
                     if (atributo === 'forca') {
@@ -716,8 +715,8 @@ export default class jogadorSheet extends ActorSheet {
 
                     let percepDestreza = this.actor.system.proeficiencias?.destreza?.primeiro?.ativo || false;
                     let percepMente = this.actor.system.proeficiencias?.mente?.terceiro?.ativo || false;
-                    let positivo = this.actor.system.status?.percep-pas?.positivo || 0;
-                    let negativo = this.actor.system.status?.percep-pas?.negativo || 0;
+                    let positivo = this.actor.system.status?.["percep-pas"]?.positivo || 0;
+                    let negativo = this.actor.system.status?.["percep-pas"]?.negativo || 0;
 
                     // Atualiza com o novo valor do checkbox que foi alterado
                     if (atributo === 'destreza' && order === 'primeiro') {
@@ -745,20 +744,17 @@ export default class jogadorSheet extends ActorSheet {
                 // CALCULO ESQUIVA
                 if (atributo === 'mobilidade' && order === 'primeiro') {
                     const esquivaPadrao = 6;
-                    let positivo = this.actor.system.status?.esquiva-pas?.positivo || 0;
-                    let negativo = this.actor.system.status?.esquiva-pas?.negativo || 0;
+                    let positivo = this.actor.system.status?.["esquiva-pas"]?.positivo || 0;
+                    let negativo = this.actor.system.status?.["esquiva-pas"]?.negativo || 0;
 
                     let esquivaMobilidade = this.actor.system.proeficiencias?.mobilidade?.primeiro?.ativo || false;
-                    console.log('teste 1')
 
                     if (atributo === 'mobilidade' && order === 'primeiro') {
                         esquivaMobilidade = value;
-                        console.log('Teste 2')
                     }
                     // Usa o novo valor do atributo sendo alterado, e lê do actor para o outro
                     const mobilidadeValue = this.actor.system.atributos.mobilidade.value || 0;
                     let esquivaPas = esquivaPadrao;
-                    console.log('teste 3')
 
                     if ((esquivaMobilidade) && (mobilidadeValue % 3 === 0) && (mobilidadeValue >= 6)) {
                         esquivaPas = (esquivaPadrao + (Math.trunc(mobilidadeValue / 2) * 2)) + positivo - negativo;
