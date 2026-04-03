@@ -17,6 +17,14 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
   console.log("Cinzas no Paraíso das Lâminas | Inicializando o sistema Cinzas no Paraíso das Lâminas");
 
+  // Registrar helper Handlebars para trim
+  Handlebars.registerHelper('trim', function(value) {
+    if (typeof value === 'string') {
+      return new Handlebars.SafeString(value.trim());
+    }
+    return value;
+  });
+
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("cinzas-no-paraiso-das-laminas", jogadorSheet, {
     types: ["Jogador", "NPC"],

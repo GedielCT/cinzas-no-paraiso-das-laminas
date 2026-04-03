@@ -202,7 +202,7 @@
     <h2 class="subtitulo">STATUS</h2>
     <div class="campo-alteracao">
         <label class="label-alteracao">Vida Máx.:</label>
-        <input id="alt-vida-max" class="input-alt-max" value="{{actor.system.status.vida.value}} / {{actor.system.status.vida.max}}"/>
+        <input id="alt-vida-max" class="input-alt-max" value="{{actor.system.status.vida.max}} / {{actor.system.status.vida.value}}"/>
         <label class="label-positivo">+ ({{actor.system.status.vida.positivo}})</label>
         <input id="alt-vida-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
         <button type="button" id="btn-vida-positivo-zerar" class="btn-zerar">Zerar</button>
@@ -212,7 +212,7 @@
     </div>
     <div class="campo-alteracao">
         <label class="label-alteracao">Estamina Máx.:</label>
-        <input id="alt-estamina-max" class="input-alt-max" value="{{actor.system.status.estamina.value}} / {{actor.system.status.estamina.max}}"/>
+        <input id="alt-estamina-max" class="input-alt-max" value="{{actor.system.status.estamina.max}} / {{actor.system.status.estamina.value}}"/>
         <label class="label-positivo">+ ({{actor.system.status.estamina.positivo}})</label>
         <input id="alt-estamina-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
         <button type="button" id="btn-estamina-positivo-zerar" class="btn-zerar">Zerar</button>
@@ -224,7 +224,7 @@
 
     <div class="campo-alteracao">
         <label class="label-alteracao">Psique Máx.:</label>
-        <input id="alt-psique-max" class="input-alt-max" value="{{actor.system.status.psique.value}} / {{actor.system.status.psique.max}}"/>
+        <input id="alt-psique-max" class="input-alt-max" value="{{actor.system.status.psique.max}} / {{actor.system.status.psique.value}}"/>
         <label class="label-positivo">+ ({{actor.system.status.psique.positivo}})</label>
         <input id="alt-psique-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
         <button type="button" id="btn-psique-positivo-zerar" class="btn-zerar">Zerar</button>
@@ -270,7 +270,7 @@
 
     <div class="campo-alteracao">
         <label class="label-alteracao">Energia Máx.:</label>
-        <input id="alt-energia-max" class="input-alt-max" value="{{actor.system.mestica.energia.value}} / {{actor.system.mestica.energia.max}}"/>
+        <input id="alt-energia-max" class="input-alt-max" value="{{actor.system.mestica.energia.max}} / {{actor.system.mestica.energia.value}}"/>
         <label class="label-positivo">+ ({{actor.system.mestica.energia.positivo}})</label>
         <input id="alt-energia-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
         <button type="button" id="btn-energia-positivo-zerar" class="btn-zerar">Zerar</button>
@@ -280,7 +280,7 @@
     </div>
     <div class="campo-alteracao">
         <label class="label-alteracao">Canalização Máx.:</label>
-        <input id="alt-canalizacao-max" class="input-alt-max" value="{{actor.system.mestica.canalizacao.value}} / {{actor.system.mestica.canalizacao.max}}"/>
+        <input id="alt-canalizacao-max" class="input-alt-max" value="{{actor.system.mestica.canalizacao.max}} / {{actor.system.mestica.canalizacao.value}}"/>
         <label class="label-positivo">+ ({{actor.system.mestica.canalizacao.positivo}})</label>
         <input id="alt-canalizacao-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
         <button type="button" id="btn-canalizacao-positivo-zerar" class="btn-zerar">Zerar</button>
@@ -351,12 +351,12 @@
         <button type="button" id="btn-moral-negativo-zerar" class="btn-zerar">Zerar</button>
     </div>
 
-    <div class="">
-        <h2 class="subtitulo">COMBATE</h2>
+    <div class="" style="display: none;">
+        <h2 class="subtitulo" style="display: none;">COMBATE</h2>
     </div>
 
     <div class="campo-alteracao">
-        <label class="label-alteracao">Dano Total:</label>
-        <input id="alt-dano-total" class="" value="{{actor.system.combate.dano.total}}" disabled/>
+        <label class="label-alteracao" style="display: none;">Dano Total:</label>
+        <input id="alt-dano-total" class="" value="{{actor.system.combate.dano.total}}" disabled style="display: none;"/>
     </div>
 </div>

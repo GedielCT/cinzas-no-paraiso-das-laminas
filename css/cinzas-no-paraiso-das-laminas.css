@@ -57,6 +57,7 @@
     box-sizing: border-box;
     grid-template-columns: 25% 75%;
     grid-template-rows: 50% 50%;
+    overflow: auto;
 }
 
 .foto-proeficiencias {
