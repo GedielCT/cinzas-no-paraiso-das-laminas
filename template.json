@@ -240,9 +240,9 @@
         "corFundoInput": "#c1bfbf",
         "corTextoInput": "#000000"
       },
-      "demais_informacoes": {
-        "ate_aonde_iria": "",
-        "nascimento_mestica": "",
+      "demais-informacoes": {
+        "ate-aonde-iria": "",
+        "nascimento-mestica": "",
         "anotacoes": ""
       }
     },

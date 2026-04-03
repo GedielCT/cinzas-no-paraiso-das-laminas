@@ -67,6 +67,7 @@ export default class jogadorSheet extends ActorSheet {
         this.setupCorNavListener(html);
         this.setupAutoSave(html);
         this.setupZerarPositivoNegativo(html);
+        this.initQuillEditors(html);
 
         // Botão btn-dano: zera total e porcentagem de dano (UI + dados do ator)
         html.find("#btn-dano").on("click", () => {
@@ -458,6 +459,89 @@ export default class jogadorSheet extends ActorSheet {
             html.find(".ficha-alteracoes").hide();
             html.find(".ficha-demais-informacoes").show();
         });
+    }
+
+    initQuillEditors(html) {
+        // Carregar Quill dinamicamente se não estiver já carregado
+        if (typeof Quill === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/quill@1.3.6/dist/quill.js';
+            script.onload = () => this.initializeQuillInstances(html);
+            document.head.appendChild(script);
+
+            // Adicionar CSS do Quill
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://cdn.jsdelivr.net/npm/quill@1.3.6/dist/quill.core.css';
+            document.head.appendChild(link);
+
+            const linkSnow = document.createElement('link');
+            linkSnow.rel = 'stylesheet';
+            linkSnow.href = 'https://cdn.jsdelivr.net/npm/quill@1.3.6/dist/quill.snow.css';
+            document.head.appendChild(linkSnow);
+        } else {
+            this.initializeQuillInstances(html);
+        }
+    }
+
+    initializeQuillInstances(html) {
+        const quillOptions = {
+            theme: 'snow',
+            modules: {
+                toolbar: [
+                    [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['bold', 'italic', 'underline'],
+                    ['link', 'image'],
+                    [{ 'align': [] }],
+                    ['clean']
+                ]
+            }
+        };
+
+        const editors = [
+            { selector: '#peculiariedades', field: 'system.mestica.peculiaridades' },
+            { selector: '#tecnicas', field: 'system.mestica.tecnicas' },
+            { selector: '#inventario', field: 'system.inventario' },
+            { selector: '#text-ate-aonde-iria', field: 'system.demais-informacoes.ate-aonde-iria' },
+            { selector: '#text-nascimento-mestica', field: 'system.demais-informacoes.nascimento-mestica' },
+            { selector: '#text-anotacoes', field: 'system.demais-informacoes.anotacoes' }
+        ];
+
+        for (const editor of editors) {
+            const container = html.find(editor.selector);
+            if (!container.length) continue;
+
+            const quill = new Quill(container[0], quillOptions);
+
+            let initialContent = '';
+            if (editor.field === 'system.mestica.peculiaridades') {
+                initialContent = this.actor.system.mestica?.peculiaridades || '';
+            } else if (editor.field === 'system.mestica.tecnicas') {
+                initialContent = this.actor.system.mestica?.tecnicas || '';
+            } else if (editor.field === 'system.inventario') {
+                initialContent = this.actor.system.inventario || '';
+            } else if (editor.field === 'system.demais-informacoes.ate-aonde-iria') {
+                initialContent = this.actor.system['demais-informacoes']?.['ate-aonde-iria'] || '';
+            } else if (editor.field === 'system.demais-informacoes.nascimento-mestica') {
+                initialContent = this.actor.system['demais-informacoes']?.['nascimento-mestica'] || '';
+            } else if (editor.field === 'system.demais-informacoes.anotacoes') {
+                initialContent = this.actor.system['demais-informacoes']?.anotacoes || '';
+            }
+
+            if (initialContent) {
+                quill.root.innerHTML = initialContent;
+            }
+
+            let debounceTimer = null;
+            quill.on('text-change', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const content = quill.root.innerHTML;
+                    this.actor.update({ [editor.field]: content });
+                }, 1000);
+            });
+        }
     }
 
     // ========== HELPER FUNCTIONS PARA CÁLCULOS REPETIDOS ==========
@@ -994,9 +1078,9 @@ export default class jogadorSheet extends ActorSheet {
                 "dano-mestica": "system.mestica.dano",
                 "text-peculiaridades": "system.mestica.peculiaridades",
                 "text-tecnicas": "system.mestica.tecnicas",
-                "text-ate-aonde-iria": "system.demais_informacoes.ate_aonde_iria",
-                "text-nascimento-mestica": "system.demais_informacoes.nascimento_mestica",
-                "text-anotacoes": "system.demais_informacoes.anotacoes",
+                "text-ate-aonde-iria": "system.demais-informacoes.ate-aonde-iria",
+                "text-nascimento-mestica": "system.demais-informacoes.nascimento-mestica",
+                "text-anotacoes": "system.demais-informacoes.anotacoes",
 
                 // Campos de override na aba Alterações (não disparam cálculos automáticos)
                 "alt-vida-max": "system.status.vida.max",

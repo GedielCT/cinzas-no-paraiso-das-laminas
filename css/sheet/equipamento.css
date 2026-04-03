@@ -10,11 +10,6 @@
     align-items: center;
     padding: 5px;
 }
-.inventario {
-    height: 77%;
-    box-sizing: border-box;
-    padding: 5px;
-}
 
 .campo-equipamento {
     display: flex;
@@ -65,13 +60,4 @@
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
-}
-
-.campo-inventario {
-    height: 89%;
-    width: 100%;
-    resize: none;
-    overflow: auto;
-    font-size: 16px;
-    font-family: "Inter", sans-serif;
 }

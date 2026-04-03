@@ -53,30 +53,21 @@
 }
 
 .peculiaridades {
-    height: 40%;
-    width: 100%;
+    height: 30%;
     box-sizing: border-box;
+    margin-bottom: 80px;
 }
 
 .tecnicas {
-    height: 60%;
-    width: 100%;
+    height: 45%;
     box-sizing: border-box;
 }
 
-.text-peculiaridades, .text-tecnicas {
+.text-extra {
     width: 100%;
     resize: none;
     overflow: auto;
     background-color: var(--cor-fundo-input);
     font-size: 13px;
     font-family: "Inter", sans-serif;
-}
-
-.text-peculiaridades {
-    height: 85%;
-}
-
-.text-tecnicas {
-    height: 90%;
 }
