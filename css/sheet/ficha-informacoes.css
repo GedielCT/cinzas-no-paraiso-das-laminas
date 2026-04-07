@@ -3,9 +3,10 @@
     width: 100%;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: 26% 26% 24% 24%;
-    grid-template-rows: 45% 55%;
+    grid-template-columns: 150px 180px 120px 120px;
+    grid-template-rows: 150px 205px 200px;
     padding: 5px;
+    gap: 5px;
 }
 .informacoes-gerais {
     height: 100%;
@@ -128,49 +129,118 @@
 }
 
 .status {
+    height: 100%;
+    width: 100%;
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 120px 110px 105px;
+    grid-template-rows: 30px 175px;
+}
+#titulo-status {
+    grid-column: span 3;
+}
+
+.base {
     display: grid;
     grid-template-rows: 15% 85%;
 }
-.campo-status {
+.campo-base {
     height: 25px;
     display: flex;
     box-sizing: border-box;
     align-items: center;
     padding: 2px;
 }
-.label-status {
-    width: 50%;
+.label-base {
+    width: 75px;
 }
-.input-status {
-    width: 50%;
+.input-base {
+    width: 40px;
+}
+
+.temporario {
+    display: grid;
+    grid-template-rows: 15% 85%;
+}
+.campo-status-temporario {
+    height: 25px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 2px;
+}
+.label-status-temporario {
+    width: 20px;
+    text-align: center;
+}
+.input-status-temporario {
+    width: 35px;
+}
+
+.atual-total {
+    display: grid;
+    grid-template-rows: 15% 85%;
+}
+.campo-atual-total {
+    height: 25px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 2px;
+}
+.label-atual-total {
+    width: 20px;
+    text-align: center;
+}
+.input-atual-total {
+    width: 80px;
+}
+
+.dado-atributo {
+    grid-row: 3;
+    grid-column: span 4;
+    display: grid;
+    grid-template-rows: 30px 170px;
+    grid-template-columns: 85px 250px 250px;
+}
+#titulo-atributo {
+    grid-column: span 3;
+}
+.nomes-atributos {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
+}
+
+
+.dados {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
+}
+.input-dados {
+    width: 50px;
 }
 
 .atributo {
-    display: grid;
-    grid-template-rows: 15% 85%;
-}
-.campo-atributo {
-    height: 25px;
+    grid-column: 3;
     display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    padding: 2px;
-}
-.label-dado {
-    width: 15%;
-}
-.label-atributo {
-    width: 57%;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
 }
 .input-atributo {
-    width: 28%;
+    width: 50px;
 }
 
 .combate {
     grid-column: span 2;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 15% 85%;
+    grid-template-columns: 120px 120px;
+    grid-template-rows: 30px 175px;
 }
 #titulo-combate {
     grid-column: span 2;
@@ -191,10 +261,37 @@
     justify-content: center;
 }
 .label-combate {
-    width: 45%;
+    width: 62px;
     box-sizing: border-box;
 }
 .input-combate {
-    width: 55%;
+    width: 40px;
     box-sizing: border-box;
+}
+
+.buffs-debuffs {
+    grid-column: span 4;
+    box-sizing: border-box;
+}
+
+.geral-buffs-debuffs {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 150px 150px 150px 125px;
+    gap: 5px;
+}
+
+.campo-vida-buffs {
+    height: 25px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 2px;
+}
+
+.input-buffs {
+    width: 42px;
+    box-sizing: border-box;
+    margin-left: 4px;
+    margin-right: 4px;
 }

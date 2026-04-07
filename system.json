@@ -32,7 +32,7 @@
     "styles": [
         "css/cinzas-no-paraiso-das-laminas.css",
         "css/sheet/ficha-informacoes.css",
-        "css/sheet/proeficiencias.css",
+        "css/sheet/personagem/ficha-personagem.css",
         "css/sheet/equipamento.css",
         "css/sheet/mestica/ficha-informacoes.css",
         "css/sheet/alteracoes/alteracoes.css",

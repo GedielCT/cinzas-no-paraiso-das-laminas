@@ -22,6 +22,7 @@
         "vida": {
           "value": 100,
           "max": 100,
+          "base": 100,
           "vidaPerdida": 0,
           "positivo": 0,
           "negativo": 0
@@ -29,7 +30,7 @@
         "estamina": {
           "value": 20,
           "max": 20,
-          "bonus": 0,
+          "base": 0,
           "estaminaPerdida": 0,
           "positivo": 0,
           "negativo": 0
@@ -37,22 +38,26 @@
         "psique": {
           "value": 100,
           "max": 100,
+          "base": 0,
           "psiquePerdida": 0,
           "positivo": 0,
           "negativo": 0
         },
         "resist-pas": {
           "value": 0,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         },
         "percep-pas": {
           "value": 5,
+          "base": 5,
           "positivo": 0,
           "negativo": 0
         },
         "esquiva-pas": {
           "value": 0,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         }
@@ -60,37 +65,75 @@
       "atributos": {
         "forca": {
           "value": 0,
-          "dados": 1,
+          "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "constituicao": {
           "value": 0,
-          "dados": 1,
+          "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "destreza": {
           "value": 0,
-          "dados": 1,
+          "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "mobilidade": {
           "value": 0,
-          "dados": 1,
+          "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "mente": {
           "value": 0,
-          "dados": 1,
+          "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "moral": {
           "value": 0,
-          "dados": 1,
+          "base": 1,
+          "positivo": 0,
+          "negativo": 0
+        }
+      },
+      "dados": {
+        "forca": {
+          "value": 0,
+          "base": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "constituicao": {
+          "value": 0,
+          "base": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "destreza": {
+          "value": 0,
+          "base": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "mobilidade": {
+          "value": 0,
+          "base": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "mente": {
+          "value": 0,
+          "base": 1,
+          "positivo": 0,
+          "negativo": 0
+        },
+        "moral": {
+          "value": 0,
+          "base": 1,
           "positivo": 0,
           "negativo": 0
         }
@@ -252,6 +295,7 @@
         "informacoes",
         "status",
         "atributos",
+        "dados",
         "combate",
         "equipamento",
         "inventario",
@@ -266,6 +310,7 @@
         "informacoes",
         "status",
         "atributos",
+        "dados",
         "combate",
         "equipamento",
         "inventario",

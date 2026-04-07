@@ -641,22 +641,23 @@ export default class jogadorSheet extends ActorSheet {
         let negativo = this.actor.system.status?.vida?.negativo || 0;
 
         // Calcula vida máxima base: 100 + (constituição * 10)
-        let vidaMax = (vidaPadrao + (constituicaoValue * 10));
+        let vidaBase = (vidaPadrao + (constituicaoValue * 10));
         
         // Se proficiência "Saúde" está ativa, dobra a vida máxima
         if (saudeAtiva) {
-            vidaMax = vidaMax * 2;
+            vidaBase = vidaBase * 2;
         }
 
-        const metadeVida = vidaMax / 2;
+        const metadeVida = vidaBase / 2;
         const energiaMax = this.actor.system.mestica?.energia?.max ?? 0;
         
-        vidaMax = vidaMax + positivo - negativo;
+        vidaMax = vidaBase + positivo - negativo;
         const vidaPerdida = this.actor.system.status?.vida?.vidaPerdida ?? 0;
         const vidaValue = Math.max(0, vidaMax - vidaPerdida);
 
         return {
             max: vidaMax,
+            base: vidaBase,
             value: vidaValue,
             energiaMax: metadeVida > energiaMax ? metadeVida : null,
             energiaValue: metadeVida > energiaMax ? Math.max(0, metadeVida) : null
@@ -685,6 +686,7 @@ export default class jogadorSheet extends ActorSheet {
                     const vida = this.calculateVidaMax(null, value);
                     updateObj['system.status.vida.max'] = vida.max;
                     updateObj['system.status.vida.value'] = vida.value;
+                    updateObj['system.status.vida.base'] = vida.base;
                     if (vida.energiaMax !== null) {
                         updateObj['system.mestica.energia.max'] = vida.energiaMax;
                         updateObj['system.mestica.energia.value'] = vida.energiaValue;

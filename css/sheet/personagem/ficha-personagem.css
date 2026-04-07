@@ -1,0 +1,53 @@
+.lado-esquerdo, .lado-direito {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.foto-personagem {
+    height: 280px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2%;
+}
+.foto-personagem img {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.proeficiencias {
+    height: 370px;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.proeficiencias h1 {
+    margin-bottom: 0px;
+}
+
+.personagem-proeficiencias {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    overflow-x: auto;
+}
+
+.personagem-proeficiencias h2 {
+    font-size: 23px;
+}
+
+.campo-proeficiencias {
+    display: flex;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--cor-nav);
+    padding: 4px;
+    padding-bottom: 4px;
+}
