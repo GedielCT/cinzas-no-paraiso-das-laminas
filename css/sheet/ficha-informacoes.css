@@ -10,7 +10,7 @@
 }
 .informacoes-gerais {
     height: 100%;
-    width: 100%;
+    width: 99.5%;
     grid-column: span 5;
     display: flex;
     flex-flow: wrap;
@@ -200,15 +200,14 @@
     grid-row: 3;
     grid-column: span 4;
     display: grid;
-    grid-template-rows: 30px 170px;
     grid-template-columns: 85px 250px 250px;
 }
-#titulo-atributo {
-    grid-column: span 3;
-}
 .nomes-atributos {
+    height: 140px;
     display: flex;
     flex-direction: column;
+    position: relative;
+    top: 63px;
     padding: 5px;
     gap: 5px;
 }
@@ -222,6 +221,18 @@
     gap: 5px;
 }
 .input-dados {
+    width: 50px;
+}
+.subtitulos {
+    display: flex;
+}
+.subtitulo-base {
+    width: 50px;
+}
+.subtitulo-temporario {
+    width: 150px;
+}
+.subtitulo-total {
     width: 50px;
 }
 

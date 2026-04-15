@@ -199,70 +199,6 @@
 </div>
 <div class="alteracoes-dados">
     <h1 class="titulo">ALTERAR DADOS</h1>
-    <h2 class="subtitulo">STATUS</h2>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Vida Máx.:</label>
-        <input id="alt-vida-max" class="input-alt-max" value="{{actor.system.status.vida.max}} / {{actor.system.status.vida.value}}"/>
-        <label class="label-positivo">+ ({{actor.system.status.vida.positivo}})</label>
-        <input id="alt-vida-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-vida-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.status.vida.negativo}})</label>
-        <input id="alt-vida-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-vida-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Estamina Máx.:</label>
-        <input id="alt-estamina-max" class="input-alt-max" value="{{actor.system.status.estamina.max}} / {{actor.system.status.estamina.value}}"/>
-        <label class="label-positivo">+ ({{actor.system.status.estamina.positivo}})</label>
-        <input id="alt-estamina-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-estamina-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.status.estamina.negativo}})</label>
-        <input id="alt-estamina-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-estamina-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    
-
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Psique Máx.:</label>
-        <input id="alt-psique-max" class="input-alt-max" value="{{actor.system.status.psique.max}} / {{actor.system.status.psique.value}}"/>
-        <label class="label-positivo">+ ({{actor.system.status.psique.positivo}})</label>
-        <input id="alt-psique-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-psique-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.status.psique.negativo}})</label>
-        <input id="alt-psique-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-psique-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Resistência Passiva:</label>
-        <input id="alt-resist-pas" class="input-alt-max" value="{{altResistPas}}"/>
-        <label class="label-positivo">+ ({{altResistPasPositivo}})</label>
-        <input id="alt-resist-pas-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-resist-pas-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{altResistPasNegativo}})</label>
-        <input id="alt-resist-pas-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-resist-pas-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Percepção Passiva:</label>
-        <input id="alt-percep-pas" class="input-alt-max" value="{{altPercepPas}}"/>
-        <label class="label-positivo">+ ({{altPercepPasPositivo}})</label>
-        <input id="alt-percep-pas-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-percep-pas-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{altPercepPasNegativo}})</label>
-        <input id="alt-percep-pas-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-percep-pas-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Esquiva Passiva:</label>
-        <input id="alt-esquiva-pas" class="input-alt-max" value="{{altEsquivaPas}}"/>
-        <label class="label-positivo">+ ({{altEsquivaPasPositivo}})</label>
-        <input id="alt-esquiva-pas-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-esquiva-pas-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{altEsquivaPasNegativo}})</label>
-        <input id="alt-esquiva-pas-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-esquiva-pas-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
     
     <div class="">
         <h2 class="subtitulo">MESTIÇA</h2>
@@ -273,82 +209,16 @@
         <input id="alt-energia-max" class="input-alt-max" value="{{actor.system.mestica.energia.max}} / {{actor.system.mestica.energia.value}}"/>
         <label class="label-positivo">+ ({{actor.system.mestica.energia.positivo}})</label>
         <input id="alt-energia-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-energia-positivo-zerar" class="btn-zerar">Zerar</button>
         <label class="label-negativo">− ({{actor.system.mestica.energia.negativo}})</label>
         <input id="alt-energia-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-energia-negativo-zerar" class="btn-zerar">Zerar</button>
     </div>
     <div class="campo-alteracao">
         <label class="label-alteracao">Canalização Máx.:</label>
         <input id="alt-canalizacao-max" class="input-alt-max" value="{{actor.system.mestica.canalizacao.max}} / {{actor.system.mestica.canalizacao.value}}"/>
         <label class="label-positivo">+ ({{actor.system.mestica.canalizacao.positivo}})</label>
         <input id="alt-canalizacao-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-canalizacao-positivo-zerar" class="btn-zerar">Zerar</button>
         <label class="label-negativo">− ({{actor.system.mestica.canalizacao.negativo}})</label>
         <input id="alt-canalizacao-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-canalizacao-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-
-    <h2 class="subtitulo">ATRIBUTOS</h2>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Força (dados):</label>
-        <input id="alt-forca-dados" class="input-alt-max" value="{{actor.system.atributos.forca.dados}}" placeholder="dados"/>
-        <label class="label-positivo">+ ({{actor.system.atributos.forca.positivo}})</label>
-        <input id="alt-forca-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-forca-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.atributos.forca.negativo}})</label>
-        <input id="alt-forca-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-forca-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Constituição (dados):</label>
-        <input id="alt-constituicao-dados" class="input-alt-max" value="{{actor.system.atributos.constituicao.dados}}" placeholder="dados"/>
-        <label class="label-positivo">+ ({{actor.system.atributos.constituicao.positivo}})</label>
-        <input id="alt-constituicao-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-constituicao-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.atributos.constituicao.negativo}})</label>
-        <input id="alt-constituicao-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-constituicao-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Destreza (dados):</label>
-        <input id="alt-destreza-dados" class="input-alt-max" value="{{actor.system.atributos.destreza.dados}}" placeholder="dados"/>
-        <label class="label-positivo">+ ({{actor.system.atributos.destreza.positivo}})</label>
-        <input id="alt-destreza-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-destreza-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.atributos.destreza.negativo}})</label>
-        <input id="alt-destreza-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-destreza-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Mobilidade (dados):</label>
-        <input id="alt-mobilidade-dados" class="input-alt-max" value="{{actor.system.atributos.mobilidade.dados}}" placeholder="dados"/>
-        <label class="label-positivo">+ ({{actor.system.atributos.mobilidade.positivo}})</label>
-        <input id="alt-mobilidade-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-mobilidade-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.atributos.mobilidade.negativo}})</label>
-        <input id="alt-mobilidade-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-mobilidade-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Mente (dados):</label>
-        <input id="alt-mente-dados" class="input-alt-max" value="{{actor.system.atributos.mente.dados}}" placeholder="dados"/>
-        <label class="label-positivo">+ ({{actor.system.atributos.mente.positivo}})</label>
-        <input id="alt-mente-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-mente-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.atributos.mente.negativo}})</label>
-        <input id="alt-mente-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-mente-negativo-zerar" class="btn-zerar">Zerar</button>
-    </div>
-    <div class="campo-alteracao">
-        <label class="label-alteracao">Moral (dados):</label>
-        <input id="alt-moral-dados" class="input-alt-max" value="{{actor.system.atributos.moral.dados}}" placeholder="dados"/>
-        <label class="label-positivo">+ ({{actor.system.atributos.moral.positivo}})</label>
-        <input id="alt-moral-positivo" class="input-alt-positivo" value="0" placeholder="soma"/>
-        <button type="button" id="btn-moral-positivo-zerar" class="btn-zerar">Zerar</button>
-        <label class="label-negativo">− ({{actor.system.atributos.moral.negativo}})</label>
-        <input id="alt-moral-negativo" class="input-alt-negativo" value="0" placeholder="subtrai"/>
-        <button type="button" id="btn-moral-negativo-zerar" class="btn-zerar">Zerar</button>
     </div>
 
     <div class="" style="display: none;">

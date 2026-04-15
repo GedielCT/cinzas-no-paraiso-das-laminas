@@ -30,7 +30,7 @@
         "estamina": {
           "value": 20,
           "max": 20,
-          "base": 0,
+          "base": 20,
           "estaminaPerdida": 0,
           "positivo": 0,
           "negativo": 0
@@ -38,7 +38,7 @@
         "psique": {
           "value": 100,
           "max": 100,
-          "base": 0,
+          "base": 100,
           "psiquePerdida": 0,
           "positivo": 0,
           "negativo": 0
@@ -65,74 +65,74 @@
       "atributos": {
         "forca": {
           "value": 0,
-          "base": 1,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         },
         "constituicao": {
           "value": 0,
-          "base": 1,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         },
         "destreza": {
           "value": 0,
-          "base": 1,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         },
         "mobilidade": {
           "value": 0,
-          "base": 1,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         },
         "mente": {
           "value": 0,
-          "base": 1,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         },
         "moral": {
           "value": 0,
-          "base": 1,
+          "base": 0,
           "positivo": 0,
           "negativo": 0
         }
       },
       "dados": {
         "forca": {
-          "value": 0,
+          "value": 1,
           "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "constituicao": {
-          "value": 0,
+          "value": 1,
           "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "destreza": {
-          "value": 0,
+          "value": 1,
           "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "mobilidade": {
-          "value": 0,
+          "value": 1,
           "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "mente": {
-          "value": 0,
+          "value": 1,
           "base": 1,
           "positivo": 0,
           "negativo": 0
         },
         "moral": {
-          "value": 0,
+          "value": 1,
           "base": 1,
           "positivo": 0,
           "negativo": 0

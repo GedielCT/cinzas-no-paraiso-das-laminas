@@ -63,7 +63,7 @@
             <!-- CAMPO ESTAMINA -->
             <div id="base-estamina" class="campo-base">
                 <label id="label-base-estamina" class="label-base">Estamina:</label>
-                <input id="input-base-estamina" class="input-base" style="color: #cc5500;" value="{{actor.system.status.estamina.base}}" disabled/>
+                <input id="input-estamina-base" class="input-base" style="color: #cc5500;" value="{{actor.system.status.estamina.base}}" disabled/>
             </div>
             <!-- CAMPO PSIQUE -->
             <div id="base-psique" class="campo-base">
@@ -95,44 +95,44 @@
             <!-- CAMPO VIDA -->        
             <div id="temp-vida" class="campo-status-temporario">
                 <label id="label-temp-vida" class="label-status-temporario"> + </label>
-                <input id="input-temp-vida" class="input-status-temporario" value="{{actor.system.status.vida.positivo}}">
+                <input id="vida-positivo" class="input-status-temporario" value="{{actor.system.status.vida.positivo}}">
                 <label id="label-temp-vida" class="label-status-temporario"> - </label>
-                <input id="input-temp-vida" class="input-status-temporario" value="{{actor.system.status.vida.negativo}}"> 
+                <input id="vida-negativo" class="input-status-temporario" value="{{actor.system.status.vida.negativo}}"> 
             </div>
             <!-- CAMPO ESTÂMINA -->
             <div id="temp-estamina" class="campo-status-temporario">
                 <label id="label-temp-estamina" class="label-status-temporario"> + </label>
-                <input id="input-temp-estamina" class="input-status-temporario" value="{{actor.system.status.estamina.positivo}}"/>
+                <input id="estamina-positivo" class="input-status-temporario" value="{{actor.system.status.estamina.positivo}}"/>
                 <label id="label-temp-estamina" class="label-status-temporario"> - </label>
-                <input id="input-temp-estamina" class="input-status-temporario" value="{{actor.system.status.estamina.negativo}}"/>
+                <input id="estamina-negativo" class="input-status-temporario" value="{{actor.system.status.estamina.negativo}}"/>
             </div>
             <!-- CAMPO PSIQUE -->        
             <div id="temp-psique" class="campo-status-temporario">
                 <label id="label-temp-psique" class="label-status-temporario"> + </label>
-                <input id="input-temp-psique" class="input-status-temporario" value="{{actor.system.status.psique.positivo}}"/>
+                <input id="psique-positivo" class="input-status-temporario" value="{{actor.system.status.psique.positivo}}"/>
                 <label id="label-temp-psique" class="label-status-temporario"> - </label>
-                <input id="input-temp-psique" class="input-status-temporario" value="{{actor.system.status.psique.negativo}}"/>
+                <input id="psique-negativo" class="input-status-temporario" value="{{actor.system.status.psique.negativo}}"/>
             </div>
             <!-- CAMPO RESISTENCIA -->        
             <div id="temp-resistencia" class="campo-status-temporario">
                 <label id="label-temp-resistencia" class="label-status-temporario"> + </label>
-                <input id="input-temp-resistencia" class="input-status-temporario" value="{{actor.system.status.resist-pas.positivo}}">
+                <input id="resist-pas-positivo" class="input-status-temporario" value="{{actor.system.status.resist-pas.positivo}}">
                 <label id="label-temp-resistencia" class="label-status-temporario"> - </label>
-                <input id="input-temp-resistencia" class="input-status-temporario" value="{{actor.system.status.resist-pas.negativo}}">
+                <input id="resist-pas-negativo" class="input-status-temporario" value="{{actor.system.status.resist-pas.negativo}}">
             </div>
             <!-- CAMPO PERCEPÇÃO -->        
             <div id="temp-percepcao" class="campo-status-temporario">
                 <label id="label-temp-percepcao" class="label-status-temporario"> + </label>
-                <input id="input-temp-percepcao" class="input-status-temporario" value="{{actor.system.status.percep-pas.positivo}}">
+                <input id="percep-pas-positivo" class="input-status-temporario" value="{{actor.system.status.percep-pas.positivo}}">
                 <label id="label-temp-percepcao" class="label-status-temporario"> - </label>
-                <input id="input-temp-percepcao" class="input-status-temporario" value="{{actor.system.status.percep-pas.negativo}}">
+                <input id="percep-pas-negativo" class="input-status-temporario" value="{{actor.system.status.percep-pas.negativo}}">
             </div>
             <!-- CAMPO ESQUIVA -->        
             <div id="temp-esquiva" class="campo-status-temporario">
                 <label id="label-temp-esquiva" class="label-status-temporario"> + </label>
-                <input id="input-temp-esquiva" class="input-status-temporario" value="{{actor.system.status.esquiva-pas.positivo}}">
+                <input id="esquiva-pas-positivo" class="input-status-temporario" value="{{actor.system.status.esquiva-pas.positivo}}">
                 <label id="label-temp-esquiva" class="label-status-temporario"> - </label>
-                <input id="input-temp-esquiva" class="input-status-temporario" value="{{actor.system.status.esquiva-pas.negativo}}">
+                <input id="esquiva-pas-negativo" class="input-status-temporario" value="{{actor.system.status.esquiva-pas.negativo}}">
             </div>
         </div>
     </div>
@@ -143,33 +143,33 @@
         <div class="geral-atual-total">
             <!-- CAMPO VIDA -->        
             <div id="atual-total-vida" class="campo-atual-total">
-                <label id="" class="label-atual-total"> = </label>
-                <input id="" class="input-atual-total" value="{{actor.system.status.vida.value}} / {{actor.system.status.vida.max}}"/>
+                <label id="label-atual-total-vida" class="label-atual-total"> = </label>
+                <input id="atual-total-vida" class="input-atual-total" value="{{actor.system.status.vida.value}} / {{actor.system.status.vida.max}}"/>
             </div>
             <!-- CAMPO ESTAMINA -->
             <div id="atual-total-estamina" class="campo-atual-total">
-                <label id="" class="label-atual-total"> = </label>
-                <input id="" class="input-atual-total" value="{{actor.system.status.estamina.value}} / {{actor.system.status.estamina.max}}"/>
+                <label id="label-atual-total-estamina" class="label-atual-total"> = </label>
+                <input id="atual-total-estamina" class="input-atual-total" value="{{actor.system.status.estamina.value}} / {{actor.system.status.estamina.max}}"/>
             </div>
             <!-- CAMPO PSIQUE -->        
             <div id="atual-total-psique" class="campo-atual-total">
-                <label id="" class="label-atual-total"> = </label>
-                <input id="" class="input-atual-total" value="{{actor.system.status.psique.value}} / {{actor.system.status.psique.max}}"/>
+                <label id="label-atual-total-psique" class="label-atual-total"> = </label>
+                <input id="atual-total-psique" class="input-atual-total" value="{{actor.system.status.psique.value}} / {{actor.system.status.psique.max}}"/>
             </div>
             <!-- CAMPO RESISTENCIA -->        
             <div id="atual-total-resistencia" class="campo-atual-total">
-                <label id="" class="label-atual-total"> = </label>
-                <input id="" class="input-atual-total" value="{{actor.system.status.resist-pas.value}}"/>
+                <label id="label-atual-total-resistencia" class="label-atual-total"> = </label>
+                <input id="atual-total-resistencia" class="input-atual-total" value="{{actor.system.status.resist-pas.value}}"/>
             </div>
             <!-- CAMPO PERCEPÇÃO -->        
             <div id="atual-total-percepcao" class="campo-atual-total">
-                <label id="" class="label-atual-total"> = </label>
-                <input id="" class="input-atual-total" value="{{actor.system.status.percep-pas.value}}"/>
+                <label id="label-atual-total-percepcao" class="label-atual-total"> = </label>
+                <input id="atual-total-percepcao" class="input-atual-total" value="{{actor.system.status.percep-pas.value}}"/>
             </div>
             <!-- CAMPO ESQUIVA -->        
             <div id="atual-total-esquiva" class="campo-atual-total">
-                <label id="" class="label-atual-total"> = </label>
-                <input id="" class="input-atual-total" value="{{actor.system.status.esquiva-pas.value}}"/>
+                <label id="label-atual-total-esquiva" class="label-atual-total"> = </label>
+                <input id="atual-total-esquiva" class="input-atual-total" value="{{actor.system.status.esquiva-pas.value}}"/>
             </div>
         </div>
     </div>
@@ -246,9 +246,7 @@
 </div>
 <!-- FIM DO COMBATE -->
 <div class="dado-atributo">
-    <h1 id="titulo-atributo" class="titulo">DADOS E ATRIBUTOS</h1>
     <div class="nomes-atributos">
-        <h2 class="subtitulo">NOME</h2>
         <label id="label-forca" class="label-atributo">Força:</label>
         <label id="label-constituicao" class="label-atributo">Constituição:</label>
         <label id="label-destreza" class="label-atributo">Destreza:</label>
@@ -257,121 +255,129 @@
         <label id="label-moral" class="label-atributo">Moral:</label>
     </div>
 
-
     <div class="dados">
-        <h2 class="subtitulo">DADOS</h2>
-        <div class="campo-dados">
-            <input class="input-dados" value="{{actor.system.dados.forca.base}}"/>
-            <label class="label-dados">+</label>
-            <input class="input-dados" value="{{actor.system.dados.forca.positivo}}"/>
-            <label class="label-dados">-</label>
-            <input class="input-dados" value="{{actor.system.dados.forca.negativo}}"/>
-            <label class="label-dados">=</label>
-            <input class="input-dados" value="{{actor.system.dados.forca.value}}"/>
+        <h1 class="titulo">DADOS</h1>
+        <div class="subtitulos">
+            <h2 class="subtitulo subtitulo-base">BASE</h2>
+            <h2 class="subtitulo subtitulo-temporario">TEMPORARIO</h2>
+            <h2 class="subtitulo subtitulo-total">TOTAL</h2>
         </div>
         <div class="campo-dados">
-            <input class="input-dados" value="{{actor.system.dados.constituicao.base}}"/>
+            <input id="dados-forca-base" class="input-dados" value="{{actor.system.dados.forca.base}}" disabled/>
             <label class="label-dados">+</label>
-            <input class="input-dados" value="{{actor.system.dados.constituicao.positivo}}"/>
+            <input id="dados-forca-positivo" class="input-dados" value="{{actor.system.dados.forca.positivo}}"/>
             <label class="label-dados">-</label>
-            <input class="input-dados" value="{{actor.system.dados.constituicao.negativo}}"/>
+            <input id="dados-forca-negativo" class="input-dados" value="{{actor.system.dados.forca.negativo}}"/>
             <label class="label-dados">=</label>
-            <input class="input-dados" value="{{actor.system.dados.constituicao.value}}"/>
+            <input id="dados-forca-total" class="input-dados" value="{{actor.system.dados.forca.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-dados" value="{{actor.system.dados.destreza.base}}"/>
+            <input id="dados-constituicao-base" class="input-dados" value="{{actor.system.dados.constituicao.base}}" disabled/>
             <label class="label-dados">+</label>
-            <input class="input-dados" value="{{actor.system.dados.destreza.positivo}}"/>
+            <input id="dados-constituicao-positivo" class="input-dados" value="{{actor.system.dados.constituicao.positivo}}"/>
             <label class="label-dados">-</label>
-            <input class="input-dados" value="{{actor.system.dados.destreza.negativo}}"/>
+            <input id="dados-constituicao-negativo" class="input-dados" value="{{actor.system.dados.constituicao.negativo}}"/>
             <label class="label-dados">=</label>
-            <input class="input-dados" value="{{actor.system.dados.destreza.value}}"/>
+            <input id="dados-constituicao-total" class="input-dados" value="{{actor.system.dados.constituicao.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-dados" value="{{actor.system.dados.mobilidade.base}}"/>
+            <input id="dados-destreza-base" class="input-dados" value="{{actor.system.dados.destreza.base}}" disabled/>
             <label class="label-dados">+</label>
-            <input class="input-dados" value="{{actor.system.dados.mobilidade.positivo}}"/>
+            <input id="dados-destreza-positivo" class="input-dados" value="{{actor.system.dados.destreza.positivo}}"/>
             <label class="label-dados">-</label>
-            <input class="input-dados" value="{{actor.system.dados.mobilidade.negativo}}"/>
+            <input id="dados-destreza-negativo" class="input-dados" value="{{actor.system.dados.destreza.negativo}}"/>
             <label class="label-dados">=</label>
-            <input class="input-dados" value="{{actor.system.dados.mobilidade.value}}"/>
+            <input id="dados-destreza-total" class="input-dados" value="{{actor.system.dados.destreza.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-dados" value="{{actor.system.dados.mente.base}}"/>
+            <input id="dados-mobilidade-base" class="input-dados" value="{{actor.system.dados.mobilidade.base}}" disabled/>
             <label class="label-dados">+</label>
-            <input class="input-dados" value="{{actor.system.dados.mente.positivo}}"/>
+            <input id="dados-mobilidade-positivo" class="input-dados" value="{{actor.system.dados.mobilidade.positivo}}"/>
             <label class="label-dados">-</label>
-            <input class="input-dados" value="{{actor.system.dados.mente.negativo}}"/>
+            <input id="dados-mobilidade-negativo" class="input-dados" value="{{actor.system.dados.mobilidade.negativo}}"/>
             <label class="label-dados">=</label>
-            <input class="input-dados" value="{{actor.system.dados.mente.value}}"/>
+            <input id="dados-mobilidade-total" class="input-dados" value="{{actor.system.dados.mobilidade.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-dados" value="{{actor.system.dados.moral.base}}"/>
+            <input id="dados-mente-base" class="input-dados" value="{{actor.system.dados.mente.base}}" disabled/>
             <label class="label-dados">+</label>
-            <input class="input-dados" value="{{actor.system.dados.moral.positivo}}"/>
+            <input id="dados-mente-positivo" class="input-dados" value="{{actor.system.dados.mente.positivo}}"/>
             <label class="label-dados">-</label>
-            <input class="input-dados" value="{{actor.system.dados.moral.negativo}}"/>
+            <input id="dados-mente-negativo" class="input-dados" value="{{actor.system.dados.mente.negativo}}"/>
             <label class="label-dados">=</label>
-            <input class="input-dados" value="{{actor.system.dados.moral.value}}"/>
+            <input id="dados-mente-total" class="input-dados" value="{{actor.system.dados.mente.value}}" disabled/>
+        </div>
+        <div class="campo-dados">
+            <input id="dados-moral-base" class="input-dados" value="{{actor.system.dados.moral.base}}" disabled/>
+            <label class="label-dados">+</label>
+            <input id="dados-moral-positivo" class="input-dados" value="{{actor.system.dados.moral.positivo}}"/>
+            <label class="label-dados">-</label>
+            <input id="dados-moral-negativo" class="input-dados" value="{{actor.system.dados.moral.negativo}}"/>
+            <label class="label-dados">=</label>
+            <input id="dados-moral-total" class="input-dados" value="{{actor.system.dados.moral.value}}" disabled/>
         </div>
     </div>
 
-
     <div class="atributo">
-        <h2 class="subtitulo">ATRIBUTOS</h2>
-        <div class="campo-dados">
-            <input class="input-atributo" value="{{actor.system.atributos.forca.base}}"/>
-            <label class="label-atributo">+</label>
-            <input class="input-atributo" value="{{actor.system.atributos.forca.positivo}}"/>
-            <label class="label-atributo">-</label>
-            <input class="input-atributo" value="{{actor.system.atributos.forca.negativo}}"/>
-            <label class="label-atributo">=</label>
-            <input class="input-atributo" value="{{actor.system.atributos.forca.value}}"/>
+        <h1 class="titulo">ATRIBUTOS</h1>
+        <div class="subtitulos">
+            <h2 class="subtitulo subtitulo-base">BASE</h2>
+            <h2 class="subtitulo subtitulo-temporario">TEMPORARIO</h2>
+            <h2 class="subtitulo subtitulo-total">TOTAL</h2>
         </div>
         <div class="campo-dados">
-            <input class="input-atributo" value="{{actor.system.atributos.constituicao.base}}"/>
+            <input id="atributos-forca-base" class="input-atributo" value="{{actor.system.atributos.forca.base}}"/>
             <label class="label-atributo">+</label>
-            <input class="input-atributo" value="{{actor.system.atributos.constituicao.positivo}}"/>
+            <input id="atributos-forca-positivo" class="input-atributo" value="{{actor.system.atributos.forca.positivo}}"/>
             <label class="label-atributo">-</label>
-            <input class="input-atributo" value="{{actor.system.atributos.constituicao.negativo}}"/>
+            <input id="atributos-forca-negativo" class="input-atributo" value="{{actor.system.atributos.forca.negativo}}"/>
             <label class="label-atributo">=</label>
-            <input class="input-atributo" value="{{actor.system.atributos.constituicao.value}}"/>
+            <input id="atributos-forca-total" class="input-atributo" value="{{actor.system.atributos.forca.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.base}}"/>
+            <input id="atributos-constituicao-base" class="input-atributo" value="{{actor.system.atributos.constituicao.base}}"/>
             <label class="label-atributo">+</label>
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.positivo}}"/>
+            <input id="atributos-constituicao-positivo" class="input-atributo" value="{{actor.system.atributos.constituicao.positivo}}"/>
             <label class="label-atributo">-</label>
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.negativo}}"/>
+            <input id="atributos-constituicao-negativo" class="input-atributo" value="{{actor.system.atributos.constituicao.negativo}}"/>
             <label class="label-atributo">=</label>
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.value}}"/>
+            <input id="atributos-constituicao-total" class="input-atributo" value="{{actor.system.atributos.constituicao.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.base}}"/>
+            <input id="atributos-destreza-base" class="input-atributo" value="{{actor.system.atributos.destreza.base}}"/>
             <label class="label-atributo">+</label>
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.positivo}}"/>
+            <input id="atributos-destreza-positivo" class="input-atributo" value="{{actor.system.atributos.destreza.positivo}}"/>
             <label class="label-atributo">-</label>
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.negativo}}"/>
+            <input id="atributos-destreza-negativo" class="input-atributo" value="{{actor.system.atributos.destreza.negativo}}"/>
             <label class="label-atributo">=</label>
-            <input class="input-atributo" value="{{actor.system.atributos.destreza.value}}"/>
+            <input id="atributos-destreza-total" class="input-atributo" value="{{actor.system.atributos.destreza.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-atributo" value="{{actor.system.atributos.mobilidade.base}}"/>
+            <input id="atributos-mobilidade-base" class="input-atributo" value="{{actor.system.atributos.mobilidade.base}}"/>
             <label class="label-atributo">+</label>
-            <input class="input-atributo" value="{{actor.system.atributos.mobilidade.positivo}}"/>
+            <input id="atributos-mobilidade-positivo" class="input-atributo" value="{{actor.system.atributos.mobilidade.positivo}}"/>
             <label class="label-atributo">-</label>
-            <input class="input-atributo" value="{{actor.system.atributos.mobilidade.negativo}}"/>
+            <input id="atributos-mobilidade-negativo" class="input-atributo" value="{{actor.system.atributos.mobilidade.negativo}}"/>
             <label class="label-atributo">=</label>
-            <input class="input-atributo" value="{{actor.system.atributos.mobilidade.value}}"/>
+            <input id="atributos-mobilidade-total" class="input-atributo" value="{{actor.system.atributos.mobilidade.value}}" disabled/>
         </div>
         <div class="campo-dados">
-            <input class="input-atributo" value="{{actor.system.atributos.mente.base}}"/>
+            <input id="atributos-mente-base" class="input-atributo" value="{{actor.system.atributos.mente.base}}"/>
             <label class="label-atributo">+</label>
-            <input class="input-atributo" value="{{actor.system.atributos.mente.positivo}}"/>
+            <input id="atributos-mente-positivo" class="input-atributo" value="{{actor.system.atributos.mente.positivo}}"/>
             <label class="label-atributo">-</label>
-            <input class="input-atributo" value="{{actor.system.atributos.mente.negativo}}"/>
+            <input id="atributos-mente-negativo" class="input-atributo" value="{{actor.system.atributos.mente.negativo}}"/>
             <label class="label-atributo">=</label>
-            <input class="input-atributo" value="{{actor.system.atributos.mente.value}}"/>
+            <input id="atributos-mente-total" class="input-atributo" value="{{actor.system.atributos.mente.value}}" disabled/>
+        </div>
+        <div class="campo-dados">
+            <input id="atributos-moral-base" class="input-atributo" value="{{actor.system.atributos.moral.base}}"/>
+            <label class="label-atributo">+</label>
+            <input id="atributos-moral-positivo" class="input-atributo" value="{{actor.system.atributos.moral.positivo}}"/>
+            <label class="label-atributo">-</label>
+            <input id="atributos-moral-negativo" class="input-atributo" value="{{actor.system.atributos.moral.negativo}}"/>
+            <label class="label-atributo">=</label>
+            <input id="atributos-moral-total" class="input-atributo" value="{{actor.system.atributos.moral.value}}" disabled/>
         </div>
     </div>
 

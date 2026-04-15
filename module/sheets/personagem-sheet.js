@@ -66,7 +66,6 @@ export default class jogadorSheet extends ActorSheet {
         this.setupGeasReveal(html);
         this.setupCorNavListener(html);
         this.setupAutoSave(html);
-        this.setupZerarPositivoNegativo(html);
         this.initQuillEditors(html);
 
         // Botão btn-dano: zera total e porcentagem de dano (UI + dados do ator)
@@ -319,110 +318,6 @@ export default class jogadorSheet extends ActorSheet {
         inputGeas.on("blur", () => inputGeas.attr("type", "password"));
     }
 
-    setupZerarPositivoNegativo(html) {
-        const statusResources = ["vida", "estamina", "psique"];
-        statusResources.forEach(name => {
-            html.find(`#btn-${name}-positivo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const s = this.actor.system?.status?.[name];
-                const max = s?.max ?? 0;
-                const pos = s?.positivo ?? 0;
-                if (pos === 0) return;
-                this.actor.update({
-                    [`system.status.${name}.max`]: Math.max(0, max - pos),
-                    [`system.status.${name}.positivo`]: 0
-                });
-            });
-            html.find(`#btn-${name}-negativo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const s = this.actor.system?.status?.[name];
-                const max = s?.max ?? 0;
-                const neg = s?.negativo ?? 0;
-                if (neg === 0) return;
-                this.actor.update({
-                    [`system.status.${name}.max`]: max + neg,
-                    [`system.status.${name}.negativo`]: 0
-                });
-            });
-        });
-        const mesticaResources = ["energia", "canalizacao"];
-        mesticaResources.forEach(name => {
-            html.find(`#btn-${name}-positivo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const s = this.actor.system?.mestica?.[name];
-                const max = s?.max ?? 0;
-                const pos = s?.positivo ?? 0;
-                if (pos === 0) return;
-                this.actor.update({
-                    [`system.mestica.${name}.max`]: Math.max(0, max - pos),
-                    [`system.mestica.${name}.positivo`]: 0
-                });
-            });
-            html.find(`#btn-${name}-negativo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const s = this.actor.system?.mestica?.[name];
-                const max = s?.max ?? 0;
-                const neg = s?.negativo ?? 0;
-                if (neg === 0) return;
-                this.actor.update({
-                    [`system.mestica.${name}.max`]: max + neg,
-                    [`system.mestica.${name}.negativo`]: 0
-                });
-            });
-        });
-        const passivas = ["resist-pas", "percep-pas", "esquiva-pas"];
-        passivas.forEach(name => {
-            const path = `system.status.${name}`;
-            html.find(`#btn-${name}-positivo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const obj = this.actor.system?.status?.[name];
-                const val = typeof obj === "object" ? (obj?.value ?? 0) : (obj ?? 0);
-                const pos = typeof obj === "object" ? (obj?.positivo ?? 0) : 0;
-                if (pos === 0) return;
-                this.actor.update({
-                    [`${path}.value`]: val - pos,
-                    [`${path}.positivo`]: 0
-                });
-            });
-            html.find(`#btn-${name}-negativo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const obj = this.actor.system?.status?.[name];
-                const val = typeof obj === "object" ? (obj?.value ?? 0) : (obj ?? 0);
-                const neg = typeof obj === "object" ? (obj?.negativo ?? 0) : 0;
-                if (neg === 0) return;
-                this.actor.update({
-                    [`${path}.value`]: val + neg,
-                    [`${path}.negativo`]: 0
-                });
-            });
-        });
-        const atributos = ["forca", "constituicao", "destreza", "mobilidade", "mente", "moral"];
-        atributos.forEach(name => {
-            html.find(`#btn-${name}-positivo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const a = this.actor.system?.atributos?.[name];
-                const dados = a?.dados ?? 1;
-                const pos = a?.positivo ?? 0;
-                if (pos === 0) return;
-                this.actor.update({
-                    [`system.atributos.${name}.dados`]: Math.max(0, dados - pos),
-                    [`system.atributos.${name}.positivo`]: 0
-                });
-            });
-            html.find(`#btn-${name}-negativo-zerar`).on("click", () => {
-                this._restoreFocusId = document.activeElement?.id || null;
-                const a = this.actor.system?.atributos?.[name];
-                const dados = a?.dados ?? 1;
-                const neg = a?.negativo ?? 0;
-                if (neg === 0) return;
-                this.actor.update({
-                    [`system.atributos.${name}.dados`]: dados + neg,
-                    [`system.atributos.${name}.negativo`]: 0
-                });
-            });
-        });
-    }
-
     // SHOW/HIDE DE ABAS
     fichaPersonagem(html) {
         html.find("#ficha-personagem").click(() => {
@@ -545,71 +440,56 @@ export default class jogadorSheet extends ActorSheet {
     }
 
     // ========== HELPER FUNCTIONS PARA CÁLCULOS REPETIDOS ==========
-    calculateResistenciaPas(forcaValue = null, constituicaoValue = null, resistForca = null, resistConstituicao = null) {
-        const resistPadrao = 5;
-        resistForca = resistForca ?? (this.actor.system.proeficiencias?.forca?.primeiro?.ativo || false);
-        resistConstituicao = resistConstituicao ?? (this.actor.system.proeficiencias?.constituicao?.primeiro?.ativo || false);
-        const positivo = this.actor.system.status?.["resist-pas"]?.positivo || 0;
-        const negativo = this.actor.system.status?.["resist-pas"]?.negativo || 0;
-        
-        forcaValue = forcaValue ?? (this.actor.system.atributos.forca.value || 0);
+    calculateVidaMax(constituicaoValue = null, saudeAtiva = null, overrides = null) {
+        const vidaPadrao = 100;
         constituicaoValue = constituicaoValue ?? (this.actor.system.atributos.constituicao.value || 0);
+        saudeAtiva = saudeAtiva ?? (this.actor.system.proeficiencias?.constituicao?.terceiro?.ativo || false);
+        const ov = overrides && typeof overrides === "object" ? overrides : {};
+        const stV = this.actor.system?.status?.vida;
+        const positivo = ov.positivo !== undefined ? ov.positivo : (stV?.positivo || 0);
+        const negativo = ov.negativo !== undefined ? ov.negativo : (stV?.negativo || 0);
+
+        // Calcula vida máxima base: 100 + (constituição * 10)
+        let vidaBase = (vidaPadrao + (constituicaoValue * 10));
         
-        let resistPas = resistPadrao;
-        if (resistForca && resistConstituicao) {
-            resistPas = resistPadrao + (Math.trunc(forcaValue / 2)) + ((Math.trunc(constituicaoValue / 2) * 2));
-        } else if (resistForca) {
-            resistPas = resistPadrao + Math.trunc(forcaValue / 2);
-        } else if (resistConstituicao) {
-            resistPas = resistPadrao + (Math.trunc(constituicaoValue / 2) * 2);
-        } else {
-            resistPas = 0;
+        // Se proficiência "Saúde" está ativa, dobra a vida máxima
+        if (saudeAtiva) {
+            vidaBase = vidaBase * 2;
         }
-        return resistPas + positivo - negativo;
+
+        const metadeVida = vidaBase / 2;
+        const energiaMax = this.actor.system.mestica?.energia?.max ?? 0;
+        
+        const vidaMax = Math.max(0, vidaBase + positivo - negativo);
+        const vidaPerdida = stV?.vidaPerdida ?? 0;
+        const vidaValue = Math.max(0, vidaMax - vidaPerdida);
+
+        return {
+            max: vidaMax,
+            base: vidaBase,
+            value: vidaValue,
+            energiaMax: metadeVida > energiaMax ? metadeVida : null,
+            energiaValue: metadeVida > energiaMax ? Math.max(0, metadeVida) : null
+        };
     }
 
-    calculatePercepPas(destrezaValue = null, menteValue = null, percepDestreza = null, percepMente = null) {
-        const percepPadrao = 5;
-        percepDestreza = percepDestreza ?? (this.actor.system.proeficiencias?.destreza?.primeiro?.ativo || false);
-        percepMente = percepMente ?? (this.actor.system.proeficiencias?.mente?.terceiro?.ativo || false);
-        const positivo = this.actor.system.status?.["percep-pas"]?.positivo || 0;
-        const negativo = this.actor.system.status?.["percep-pas"]?.negativo || 0;
-        
-        destrezaValue = destrezaValue ?? (this.actor.system.atributos.destreza.value || 0);
-        menteValue = menteValue ?? (this.actor.system.atributos.mente.value || 0);
-        
-        let percepPas = percepPadrao;
-        if (percepDestreza && percepMente) {
-            percepPas = percepPadrao + (Math.trunc(destrezaValue / 2)) + ((Math.trunc(menteValue / 2) * 2));
-        } else if (percepDestreza) {
-            percepPas = percepPadrao + Math.trunc(destrezaValue / 2);
-        } else if (percepMente) {
-            percepPas = percepPadrao + (Math.trunc(menteValue / 2) * 2);
-        }
-        return percepPas + positivo - negativo;
+    /** Psique: max = base + positivo − negativo; value = max − psiquePerdida. `overrides`: positivo, negativo, psiquePerdida. */
+    calculatePsique(overrides = null) {
+        const st = this.actor.system?.status?.psique;
+        const ov = overrides && typeof overrides === "object" ? overrides : {};
+        const base = st?.base ?? 100;
+        const rawPerdida = st?.psiquePerdida ?? 0;
+        const positivo = ov.positivo !== undefined ? ov.positivo : (st?.positivo ?? 0);
+        const negativo = ov.negativo !== undefined ? ov.negativo : (st?.negativo ?? 0);
+        const psiquePerdida = ov.psiquePerdida !== undefined ? ov.psiquePerdida : rawPerdida;
+        const max = Math.max(0, base + positivo - negativo);
+        const value = Math.max(0, max - psiquePerdida);
+        return { base, max, value, psiquePerdida };
     }
 
-    calculateEsquivaPas(mobilidadeValue = null, esquivaMobilidade = null) {
-        const esquivaPadrao = 6;
-        esquivaMobilidade = esquivaMobilidade ?? (this.actor.system.proeficiencias?.mobilidade?.primeiro?.ativo || false);
-        const positivo = this.actor.system.status?.["esquiva-pas"]?.positivo || 0;
-        const negativo = this.actor.system.status?.["esquiva-pas"]?.negativo || 0;
-        
-        mobilidadeValue = mobilidadeValue ?? (this.actor.system.atributos.mobilidade.value || 0);
-        
-        let esquivaPas = esquivaPadrao;
-        if ((esquivaMobilidade) && (mobilidadeValue % 3 === 0) && (mobilidadeValue >= 6)) {
-            esquivaPas = esquivaPadrao + (Math.trunc(mobilidadeValue / 2) * 2);
-        } else if (esquivaMobilidade) {
-            esquivaPas = esquivaPadrao + Math.trunc(mobilidadeValue / 2);
-        } else {
-            esquivaPas = 0;
-        }
-        return esquivaPas + positivo - negativo;
-    }
-
-    calculateEstamina(constituicaoValue = null, destrezaValue = null, constituicaoFolego = null, destrezaEquilibrio = null) {
-        const estaminaBase = 20;
+    /** Cálculo de estamina. `overrides`: estaminaPerdida (absoluto), deltaEstaminaPerdida (soma ao valor do ator), positivo, negativo. */
+    calculateEstamina(constituicaoValue = null, destrezaValue = null, constituicaoFolego = null, destrezaEquilibrio = null, overrides = null) {
+        const estaminaPadrao = 20;
         constituicaoFolego = constituicaoFolego ?? (this.actor.system.proeficiencias?.constituicao?.segundo?.ativo || false);
         destrezaEquilibrio = destrezaEquilibrio ?? (this.actor.system.proeficiencias?.destreza?.terceiro?.ativo || false);
         
@@ -625,43 +505,230 @@ export default class jogadorSheet extends ActorSheet {
             bonusEstamina = Math.trunc(destrezaValue / 2) * 5;
         }
         
-        const estaminaMax = estaminaBase + bonusEstamina;
-        const estaminaPerdida = this.actor.system.status?.estamina?.estaminaPerdida ?? 0;
-        const estaminaValue = Math.max(0, estaminaMax - estaminaPerdida);
+        const estaminaBase = estaminaPadrao + bonusEstamina;
+        const st = this.actor.system?.status?.estamina;
+        const ov = overrides && typeof overrides === "object" ? overrides : {};
+        const rawPerdida = st?.estaminaPerdida ?? 0;
+        let estaminaPerdida;
+        if (ov.estaminaPerdida !== undefined) {
+            estaminaPerdida = ov.estaminaPerdida;
+        } else if (ov.deltaEstaminaPerdida !== undefined) {
+            estaminaPerdida = Math.max(0, rawPerdida + ov.deltaEstaminaPerdida);
+        } else {
+            estaminaPerdida = rawPerdida;
+        }
+        const positivo = ov.positivo !== undefined ? ov.positivo : (st?.positivo ?? 0);
+        const negativo = ov.negativo !== undefined ? ov.negativo : (st?.negativo ?? 0);
+        const estaminaMax = Math.max(0, estaminaBase + positivo - negativo);
+        const estaminaValue = Math.max(0, (estaminaBase - estaminaPerdida) + positivo - negativo);
         
-        return { bonus: bonusEstamina, max: estaminaMax, value: estaminaValue };
+        return { base: estaminaBase, max: estaminaMax, value: estaminaValue, estaminaPerdida };
     }
 
-    calculateVidaMax(constituicaoValue = null, saudeAtiva = null) {
-        const vidaPadrao = 100;
+    calculateResistenciaPas(forcaValue = null, constituicaoValue = null, resistForca = null, resistConstituicao = null, overrides = null) {
+        const resistPadrao = 5;
+        resistForca = resistForca ?? (this.actor.system.proeficiencias?.forca?.primeiro?.ativo || false);
+        resistConstituicao = resistConstituicao ?? (this.actor.system.proeficiencias?.constituicao?.primeiro?.ativo || false);
+        const ov = overrides && typeof overrides === "object" ? overrides : {};
+        const rpSt = this.actor.system.status?.["resist-pas"];
+        const positivo = ov.positivo !== undefined ? ov.positivo : (rpSt?.positivo || 0);
+        const negativo = ov.negativo !== undefined ? ov.negativo : (rpSt?.negativo || 0);
+        
+        forcaValue = forcaValue ?? (this.actor.system.atributos.forca.value || 0);
         constituicaoValue = constituicaoValue ?? (this.actor.system.atributos.constituicao.value || 0);
-        saudeAtiva = saudeAtiva ?? (this.actor.system.proeficiencias?.constituicao?.terceiro?.ativo || false);
         
-        let positivo = this.actor.system.status?.vida?.positivo || 0;
-        let negativo = this.actor.system.status?.vida?.negativo || 0;
-
-        // Calcula vida máxima base: 100 + (constituição * 10)
-        let vidaBase = (vidaPadrao + (constituicaoValue * 10));
-        
-        // Se proficiência "Saúde" está ativa, dobra a vida máxima
-        if (saudeAtiva) {
-            vidaBase = vidaBase * 2;
+        let resistPas = resistPadrao;
+        if (resistForca && resistConstituicao) {
+            resistPas = resistPadrao + (Math.trunc(forcaValue / 2)) + ((Math.trunc(constituicaoValue / 2) * 2));
+        } else if (resistForca) {
+            resistPas = resistPadrao + Math.trunc(forcaValue / 2);
+        } else if (resistConstituicao) {
+            resistPas = resistPadrao + (Math.trunc(constituicaoValue / 2) * 2);
+        } else {
+            resistPas = 0;
         }
-
-        const metadeVida = vidaBase / 2;
-        const energiaMax = this.actor.system.mestica?.energia?.max ?? 0;
-        
-        vidaMax = vidaBase + positivo - negativo;
-        const vidaPerdida = this.actor.system.status?.vida?.vidaPerdida ?? 0;
-        const vidaValue = Math.max(0, vidaMax - vidaPerdida);
-
+        let resistValue = resistPas + positivo - negativo;
         return {
-            max: vidaMax,
-            base: vidaBase,
-            value: vidaValue,
-            energiaMax: metadeVida > energiaMax ? metadeVida : null,
-            energiaValue: metadeVida > energiaMax ? Math.max(0, metadeVida) : null
+            base: resistPas,
+            value: resistValue,
         };
+    }
+
+    calculatePercepPas(destrezaValue = null, menteValue = null, percepDestreza = null, percepMente = null, overrides = null) {
+        const percepPadrao = 5;
+        percepDestreza = percepDestreza ?? (this.actor.system.proeficiencias?.destreza?.primeiro?.ativo || false);
+        percepMente = percepMente ?? (this.actor.system.proeficiencias?.mente?.terceiro?.ativo || false);
+        const ov = overrides && typeof overrides === "object" ? overrides : {};
+        const ppSt = this.actor.system.status?.["percep-pas"];
+        const positivo = ov.positivo !== undefined ? ov.positivo : (ppSt?.positivo || 0);
+        const negativo = ov.negativo !== undefined ? ov.negativo : (ppSt?.negativo || 0);
+        
+        destrezaValue = destrezaValue ?? (this.actor.system.atributos.destreza.value || 0);
+        menteValue = menteValue ?? (this.actor.system.atributos.mente.value || 0);
+        
+        let percepPas = percepPadrao;
+        if (percepDestreza && percepMente) {
+            percepPas = percepPadrao + (Math.trunc(destrezaValue / 2)) + ((Math.trunc(menteValue / 2) * 2));
+        } else if (percepDestreza) {
+            percepPas = percepPadrao + Math.trunc(destrezaValue / 2);
+        } else if (percepMente) {
+            percepPas = percepPadrao + (Math.trunc(menteValue / 2) * 2);
+        }
+        let percepValue = percepPas + positivo - negativo;
+        return {
+            base: percepPas,
+            value: percepValue,
+        };
+    }
+
+    calculateEsquivaPas(mobilidadeValue = null, esquivaMobilidade = null, overrides = null) {
+        const esquivaPadrao = 6;
+        esquivaMobilidade = esquivaMobilidade ?? (this.actor.system.proeficiencias?.mobilidade?.primeiro?.ativo || false);
+        const ov = overrides && typeof overrides === "object" ? overrides : {};
+        const epSt = this.actor.system.status?.["esquiva-pas"];
+        const positivo = ov.positivo !== undefined ? ov.positivo : (epSt?.positivo || 0);
+        const negativo = ov.negativo !== undefined ? ov.negativo : (epSt?.negativo || 0);
+        
+        mobilidadeValue = mobilidadeValue ?? (this.actor.system.atributos.mobilidade.value || 0);
+        
+        let esquivaPas = esquivaPadrao;
+        if ((esquivaMobilidade) && (mobilidadeValue % 3 === 0) && (mobilidadeValue >= 6)) {
+            esquivaPas = esquivaPadrao + (Math.trunc(mobilidadeValue / 2) * 2);
+        } else if (esquivaMobilidade) {
+            esquivaPas = esquivaPadrao + Math.trunc(mobilidadeValue / 2);
+        } else {
+            esquivaPas = 0;
+        }
+        let esquivaValue = esquivaPas + positivo - negativo;
+        return {
+            base: esquivaPas,
+            value: esquivaValue,
+        };
+    }
+
+    /**
+     * Recalcula dados de atributo: base = max(1, parte inteira de atributo.total / 4), value = max(1, base + positivo − negativo).
+     * @param {string|null} atributoKey — forca | … | moral, ou null para todos
+     * @param {object} partial — atributoTotal (ao atualizar atributo), ou base/positivo/negativo/value para edição dos dados
+     */
+    calculateDados(atributoKey = null, partial = {}) {
+        const keys = ["forca", "constituicao", "destreza", "mobilidade", "mente", "moral"];
+        const targets = atributoKey && keys.includes(atributoKey) ? [atributoKey] : keys;
+        const out = {};
+        const readNum = (k, d, field, def = 0) => {
+            const usePartial = atributoKey !== null && k === atributoKey;
+            if (usePartial && partial[field] !== undefined && partial[field] !== "" && partial[field] !== null) {
+                const x = parseInt(String(partial[field]), 10);
+                return Number.isFinite(x) ? x : def;
+            }
+            const y = d[field];
+            if (typeof y === "number" && Number.isFinite(y)) return y;
+            const z = parseInt(String(y ?? def), 10);
+            return Number.isFinite(z) ? z : def;
+        };
+
+        for (const k of targets) {
+            const a = this.actor.system?.atributos?.[k] ?? {};
+            const d = this.actor.system?.dados?.[k] ?? {};
+            const attrTotal = partial.atributoTotal !== undefined && k === atributoKey
+                ? Math.max(0, parseInt(String(partial.atributoTotal), 10) || 0)
+                : Math.max(0, typeof a.value === "number" && Number.isFinite(a.value) ? a.value : (parseInt(String(a.value ?? 0), 10) || 0));
+            const base = Math.trunc(1 + (attrTotal / 4));
+            const hasExplicitValue = atributoKey !== null && k === atributoKey && partial.value !== undefined && partial.value !== "" && partial.value !== null;
+            const positivo = readNum(k, d, "positivo");
+            const negativo = readNum(k, d, "negativo");
+            const value = hasExplicitValue
+                ? Math.max(1, parseInt(String(partial.value), 10) || 0)
+                : Math.max(1, base + positivo - negativo);
+            const path = `system.dados.${k}`;
+            if (hasExplicitValue) {
+                out[`${path}.value`] = value;
+            } else {
+                out[`${path}.base`] = base;
+                out[`${path}.positivo`] = positivo;
+                out[`${path}.negativo`] = negativo;
+                out[`${path}.value`] = value;
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Recalcula um atributo (base/positivo/negativo → value e dados) e efeitos em status derivados.
+     * @param {string} atributoKey — forca | constituicao | destreza | mobilidade | mente | moral
+     * @param {object} partial — subset de { base, positivo, negativo, value }; `value` explícito define total direto (ex.: input-forca)
+     */
+    calculateAtributo(atributoKey, partial = {}) {
+        const keys = ["forca", "constituicao", "destreza", "mobilidade", "mente", "moral"];
+        if (!keys.includes(atributoKey)) return {};
+        const a = this.actor.system?.atributos?.[atributoKey] ?? {};
+        const read = (k, def = 0) => {
+            if (partial[k] !== undefined && partial[k] !== "" && partial[k] !== null) {
+                const x = parseInt(String(partial[k]), 10);
+                return Number.isFinite(x) ? x : def;
+            }
+            const y = a[k];
+            if (typeof y === "number" && Number.isFinite(y)) return y;
+            const z = parseInt(String(y ?? def), 10);
+            return Number.isFinite(z) ? z : def;
+        };
+        const hasExplicitValue = partial.value !== undefined && partial.value !== "" && partial.value !== null;
+        const base = read("base");
+        const positivo = read("positivo");
+        const negativo = read("negativo");
+        const value = hasExplicitValue
+            ? Math.max(0, parseInt(String(partial.value), 10) || 0)
+            : Math.max(0, base + positivo - negativo);
+        const out = {};
+        const path = `system.atributos.${atributoKey}`;
+        if (hasExplicitValue) {
+            out[`${path}.value`] = value;
+        } else {
+            out[`${path}.base`] = base;
+            out[`${path}.positivo`] = positivo;
+            out[`${path}.negativo`] = negativo;
+            out[`${path}.value`] = value;
+        }
+        const getAttrValue = (k) => (k === atributoKey ? value : (this.actor.system.atributos?.[k]?.value ?? 0));
+        const fv = getAttrValue("forca");
+        const cv = getAttrValue("constituicao");
+        const dv = getAttrValue("destreza");
+        const mv = getAttrValue("mobilidade");
+        const mev = getAttrValue("mente");
+
+        if (atributoKey === "constituicao") {
+            const vida = this.calculateVidaMax(cv, null);
+            out["system.status.vida.max"] = vida.max;
+            out["system.status.vida.base"] = vida.base;
+            out["system.status.vida.value"] = vida.value;
+            if (vida.energiaMax !== null) {
+                out["system.mestica.energia.max"] = vida.energiaMax;
+                out["system.mestica.energia.value"] = vida.energiaValue;
+            }
+        }
+        if (atributoKey === "forca" || atributoKey === "constituicao") {
+            const resist = this.calculateResistenciaPas(fv, cv);
+            out["system.status.resist-pas.base"] = resist.base;
+            out["system.status.resist-pas.value"] = resist.value;
+        }
+        if (atributoKey === "destreza" || atributoKey === "mente") {
+            const percep = this.calculatePercepPas(dv, mev);
+            out["system.status.percep-pas.base"] = percep.base;
+            out["system.status.percep-pas.value"] = percep.value;
+        }
+        if (atributoKey === "mobilidade") {
+            const esquiva = this.calculateEsquivaPas(mv, null);
+            out["system.status.esquiva-pas.base"] = esquiva.base;
+            out["system.status.esquiva-pas.value"] = esquiva.value;
+        }
+        if (atributoKey === "constituicao" || atributoKey === "destreza") {
+            const est = this.calculateEstamina(cv, dv);
+            out["system.status.estamina.base"] = est.base;
+            out["system.status.estamina.max"] = est.max;
+            out["system.status.estamina.value"] = est.value;
+        }
+        Object.assign(out, this.calculateDados(atributoKey, { atributoTotal: value }));
+        return out;
     }
     // ========== FIM HELPER FUNCTIONS ==========
 
@@ -697,20 +764,26 @@ export default class jogadorSheet extends ActorSheet {
                 if ((atributo === "forca" || atributo === "constituicao") && order === 'primeiro') {
                     const forcaRes = atributo === 'forca' ? value : (this.actor.system.proeficiencias?.forca?.primeiro?.ativo || false);
                     const constituicaoRes = atributo === 'constituicao' ? value : (this.actor.system.proeficiencias?.constituicao?.primeiro?.ativo || false);
-                    updateObj['system.status.resist-pas.value'] = this.calculateResistenciaPas(null, null, forcaRes, constituicaoRes);
+                    const resist = this.calculateResistenciaPas(null, null, forcaRes, constituicaoRes);
+                    updateObj['system.status.resist-pas.base'] = resist.base;
+                    updateObj['system.status.resist-pas.value'] = resist.value;
                 }
 
                 //CALCULO PERCEPICAO
                 if ((atributo === 'destreza' && order === 'primeiro') || (atributo === 'mente' && order === 'terceiro')) {
                     const destrezaPer = atributo === 'destreza' ? value : (this.actor.system.proeficiencias?.destreza?.primeiro?.ativo || false);
                     const mentePer = atributo === 'mente' ? value : (this.actor.system.proeficiencias?.mente?.terceiro?.ativo || false);
-                    updateObj['system.status.percep-pas.value'] = this.calculatePercepPas(null, null, destrezaPer, mentePer);
+                    const percep = this.calculatePercepPas(null, null, destrezaPer, mentePer);
+                    updateObj['system.status.percep-pas.base'] = percep.base;
+                    updateObj['system.status.percep-pas.value'] = percep.value;
                 }
 
                 // CALCULO ESQUIVA
                 if (atributo === 'mobilidade' && order === 'primeiro') {
                     const esquivaMobilidade = atributo === 'mobilidade' ? value : (this.actor.system.proeficiencias?.mobilidade?.primeiro?.ativo || false);
-                    updateObj['system.status.esquiva-pas.value'] = this.calculateEsquivaPas(null, esquivaMobilidade);
+                    const esquiva = this.calculateEsquivaPas(null, esquivaMobilidade);
+                    updateObj['system.status.esquiva-pas.base'] = esquiva.base;
+                    updateObj['system.status.esquiva-pas.value'] = esquiva.value;
                 }
 
                 // CALCULO ESTAMINA (constituição.segundo Fôlego: +10 por bônus | destreza.terceiro Equilíbrio: +5 por bônus)
@@ -718,7 +791,7 @@ export default class jogadorSheet extends ActorSheet {
                     const constituicaoFolego = atributo === 'constituicao' ? value : (this.actor.system.proeficiencias?.constituicao?.segundo?.ativo || false);
                     const destrezaEquilibrio = atributo === 'destreza' ? value : (this.actor.system.proeficiencias?.destreza?.terceiro?.ativo || false);
                     const est = this.calculateEstamina(null, null, constituicaoFolego, destrezaEquilibrio);
-                    updateObj['system.status.estamina.bonus'] = est.bonus;
+                    updateObj['system.status.estamina.base'] = est.base;
                     updateObj['system.status.estamina.max'] = est.max;
                     updateObj['system.status.estamina.value'] = est.value;
                 }
@@ -727,7 +800,7 @@ export default class jogadorSheet extends ActorSheet {
                 return;
             };
 
-            // Quando o usuário informa dano recebido: soma ao total, guarda em vidaPerdida, calcula % e atualiza vida.value
+            // ;arda em vidaPerdida, calcula % e atualiza vida.value
             if (inputId === "input-dano-recebido") {
 
                 const danoRecebido = parseInt(value, 10) || 0;
@@ -778,15 +851,14 @@ export default class jogadorSheet extends ActorSheet {
             // Quando o usuário informa dano de estamina: soma ao total, guarda em estaminaPerdida e atualiza estamina.value
             if (inputId === "input-dano-estamina") {
                 const danoEstamina = parseInt(value, 10) || 0;
-                const estaminaPerdidaAtual = this.actor.system.status?.estamina?.estaminaPerdida ?? 0;
-                const novaEstaminaPerdida = estaminaPerdidaAtual + danoEstamina;
-                const estaminaMax = this.actor.system.status?.estamina?.max ?? 20;
-                const estaminaAtual = Math.max(0, estaminaMax - novaEstaminaPerdida);
+                const est = this.calculateEstamina(null, null, null, null, { deltaEstaminaPerdida: danoEstamina });
 
                 this.actor.update({
                     "system.combate.dano.estamina": 0,
-                    "system.status.estamina.estaminaPerdida": novaEstaminaPerdida,
-                    "system.status.estamina.value": estaminaAtual
+                    "system.status.estamina.estaminaPerdida": est.estaminaPerdida,
+                    "system.status.estamina.base": est.base,
+                    "system.status.estamina.max": est.max,
+                    "system.status.estamina.value": est.value
                 });
                 element.val(0);
                 return;
@@ -839,15 +911,14 @@ export default class jogadorSheet extends ActorSheet {
             if (inputId === "input-cura-estamina") {
                 const cura = parseInt(value, 10) || 0;
                 if (cura > 0) {
-                    const estaminaPerdidaAtual = this.actor.system.status?.estamina?.estaminaPerdida ?? 0;
-                    const estaminaMax = this.actor.system.status?.estamina?.max ?? 20;
-                    const novaEstaminaPerdida = Math.max(0, estaminaPerdidaAtual - cura);
-                    const estaminaAtual = Math.min(estaminaMax, estaminaMax - novaEstaminaPerdida);
+                    const est = this.calculateEstamina(null, null, null, null, { deltaEstaminaPerdida: -cura });
 
                     this.actor.update({
                         "system.combate.recuperacao.estamina": 0,
-                        "system.status.estamina.estaminaPerdida": novaEstaminaPerdida,
-                        "system.status.estamina.value": estaminaAtual
+                        "system.status.estamina.estaminaPerdida": est.estaminaPerdida,
+                        "system.status.estamina.base": est.base,
+                        "system.status.estamina.max": est.max,
+                        "system.status.estamina.value": est.value
                     });
                     element.val(0);
                 }
@@ -895,7 +966,7 @@ export default class jogadorSheet extends ActorSheet {
                 return;
             }
 
-            // Positivo/Negativo na aba Alterações: soma ou subtração no status max (o cálculo automático não altera esse processo)
+            // Mestiça (energia/canalização) na aba Alterações: ainda usa delta somado ao max e aos acumuladores
             const delta = parseInt(value, 10) || 0;
             const applyPositivoNegativo = (inputId, pathPrefix, getCurrentMax, getCurrentPositivo, getCurrentNegativo) => {
                 const isPositivo = inputId.endsWith("-positivo");
@@ -921,37 +992,65 @@ export default class jogadorSheet extends ActorSheet {
                 return true;
             };
 
-            if (inputId === "alt-vida-positivo" || inputId === "alt-vida-negativo") {
-                applyPositivoNegativo(
-                    inputId,
-                    "system.status.vida",
-                    () => this.actor.system?.status?.vida?.max ?? 100,
-                    () => this.actor.system?.status?.vida?.positivo ?? 0,
-                    () => this.actor.system?.status?.vida?.negativo ?? 0
-                );
+            if (inputId === "vida-positivo" || inputId === "vida-negativo") {
+                const isPositivo = inputId.endsWith("-positivo");
+                const s = this.actor.system?.status?.vida;
+                const typed = parseInt(value, 10) || 0;
+                const newPos = isPositivo ? Math.max(0, typed) : (s?.positivo ?? 0);
+                const newNeg = isPositivo ? (s?.negativo ?? 0) : Math.max(0, typed);
+                const vida = this.calculateVidaMax(null, null, { positivo: newPos, negativo: newNeg });
+                const upd = {
+                    "system.status.vida.positivo": newPos,
+                    "system.status.vida.negativo": newNeg,
+                    "system.status.vida.max": vida.max,
+                    "system.status.vida.base": vida.base,
+                    "system.status.vida.value": vida.value
+                };
+                if (vida.energiaMax !== null) {
+                    upd["system.mestica.energia.max"] = vida.energiaMax;
+                    upd["system.mestica.energia.value"] = vida.energiaValue;
+                }
+                this.actor.update(upd);
+                element.val(String(isPositivo ? newPos : newNeg));
                 return;
             }
-            if (inputId === "alt-estamina-positivo" || inputId === "alt-estamina-negativo") {
-                applyPositivoNegativo(
-                    inputId,
-                    "system.status.estamina",
-                    () => this.actor.system?.status?.estamina?.max ?? 20,
-                    () => this.actor.system?.status?.estamina?.positivo ?? 0,
-                    () => this.actor.system?.status?.estamina?.negativo ?? 0
-                );
+            if (inputId === "estamina-positivo" || inputId === "estamina-negativo") {
+                const isPositivo = inputId.endsWith("-positivo");
+                const s = this.actor.system?.status?.estamina;
+                const currentPos = s?.positivo ?? 0;
+                const currentNeg = s?.negativo ?? 0;
+                const typed = parseInt(value, 10) || 0;
+                const newPos = isPositivo ? Math.max(0, typed) : currentPos;
+                const newNeg = isPositivo ? currentNeg : Math.max(0, typed);
+                const est = this.calculateEstamina(null, null, null, null, { positivo: newPos, negativo: newNeg });
+                this.actor.update({
+                    "system.status.estamina.positivo": newPos,
+                    "system.status.estamina.negativo": newNeg,
+                    "system.status.estamina.base": est.base,
+                    "system.status.estamina.max": est.max,
+                    "system.status.estamina.value": est.value
+                });
+                element.val(String(isPositivo ? newPos : newNeg));
                 return;
             }
-            if (inputId === "alt-psique-positivo" || inputId === "alt-psique-negativo") {
-                applyPositivoNegativo(
-                    inputId,
-                    "system.status.psique",
-                    () => this.actor.system?.status?.psique?.max ?? 100,
-                    () => this.actor.system?.status?.psique?.positivo ?? 0,
-                    () => this.actor.system?.status?.psique?.negativo ?? 0
-                );
+            if (inputId === "psique-positivo" || inputId === "psique-negativo") {
+                const isPositivo = inputId.endsWith("-positivo");
+                const s = this.actor.system?.status?.psique;
+                const typed = parseInt(value, 10) || 0;
+                const newPos = isPositivo ? Math.max(0, typed) : (s?.positivo ?? 0);
+                const newNeg = isPositivo ? (s?.negativo ?? 0) : Math.max(0, typed);
+                const pq = this.calculatePsique({ positivo: newPos, negativo: newNeg });
+                this.actor.update({
+                    "system.status.psique.positivo": newPos,
+                    "system.status.psique.negativo": newNeg,
+                    "system.status.psique.base": pq.base,
+                    "system.status.psique.max": pq.max,
+                    "system.status.psique.value": pq.value
+                });
+                element.val(String(isPositivo ? newPos : newNeg));
                 return;
             }
-            if (inputId === "alt-energia-positivo" || inputId === "alt-energia-negativo") {
+            if (inputId === "energia-positivo" || inputId === "energia-negativo") {
                 applyPositivoNegativo(
                     inputId,
                     "system.mestica.energia",
@@ -961,7 +1060,7 @@ export default class jogadorSheet extends ActorSheet {
                 );
                 return;
             }
-            if (inputId === "alt-canalizacao-positivo" || inputId === "alt-canalizacao-negativo") {
+            if (inputId === "canalizacao-positivo" || inputId === "canalizacao-negativo") {
                 applyPositivoNegativo(
                     inputId,
                     "system.mestica.canalizacao",
@@ -971,71 +1070,89 @@ export default class jogadorSheet extends ActorSheet {
                 );
                 return;
             }
-            // Passivas (resist, percep, esquiva): soma/subtrai do valor exibido e acumula em positivo/negativo
-            const applyPassivaPositivoNegativo = (inputId, pathPrefix, getCurrentValue, getCurrentPositivo, getCurrentNegativo) => {
+            // Passivas (resist, percep, esquiva): valor absoluto em positivo/negativo temporário; value/base recalculados
+            const applyPassivaTempAbsoluto = (inputId, pathKey, calcFn) => {
                 const isPositivo = inputId.endsWith("-positivo");
-                const currentVal = getCurrentValue();
-                const currentPositivo = getCurrentPositivo();
-                const currentNegativo = getCurrentNegativo();
-                let newVal;
-                if (isPositivo) {
-                    newVal = currentVal + delta;
-                    this.actor.update({
-                        [`${pathPrefix}.value`]: newVal,
-                        [`${pathPrefix}.positivo`]: currentPositivo + delta
-                    });
-                } else {
-                    newVal = currentVal - delta;
-                    this.actor.update({
-                        [`${pathPrefix}.value`]: Math.max(0, newVal),
-                        [`${pathPrefix}.negativo`]: currentNegativo + delta
-                    });
-                }
-                element.val(0);
+                const obj = this.actor.system?.status?.[pathKey];
+                const typed = parseInt(value, 10) || 0;
+                const pos = typeof obj === "object" ? (obj?.positivo ?? 0) : 0;
+                const neg = typeof obj === "object" ? (obj?.negativo ?? 0) : 0;
+                const newPos = isPositivo ? Math.max(0, typed) : pos;
+                const newNeg = isPositivo ? neg : Math.max(0, typed);
+                const baseVal = calcFn({ positivo: 0, negativo: 0 });
+                const newVal = calcFn({ positivo: newPos, negativo: newNeg });
+                const path = `system.status.${pathKey}`;
+                this.actor.update({
+                    [`${path}.value`]: newVal,
+                    [`${path}.positivo`]: newPos,
+                    [`${path}.negativo`]: newNeg,
+                    [`${path}.base`]: baseVal
+                });
+                element.val(String(isPositivo ? newPos : newNeg));
             };
-            const rp = this.actor.system?.status?.["resist-pas"];
-            const pp = this.actor.system?.status?.["percep-pas"];
-            const ep = this.actor.system?.status?.["esquiva-pas"];
-            if (inputId === "alt-resist-pas-positivo" || inputId === "alt-resist-pas-negativo") {
-                const val = typeof rp === "object" ? (rp?.value ?? 0) : (rp ?? 0);
-                const pos = typeof rp === "object" ? (rp?.positivo ?? 0) : 0;
-                const neg = typeof rp === "object" ? (rp?.negativo ?? 0) : 0;
-                applyPassivaPositivoNegativo(inputId, "system.status.resist-pas", () => val, () => pos, () => neg);
+            if (inputId === "resist-pas-positivo" || inputId === "resist-pas-negativo") {
+                applyPassivaTempAbsoluto(inputId, "resist-pas", (ov) => this.calculateResistenciaPas(null, null, null, null, ov));
                 return;
             }
-            if (inputId === "alt-percep-pas-positivo" || inputId === "alt-percep-pas-negativo") {
-                const val = typeof pp === "object" ? (pp?.value ?? 5) : (pp ?? 5);
-                const pos = typeof pp === "object" ? (pp?.positivo ?? 0) : 0;
-                const neg = typeof pp === "object" ? (pp?.negativo ?? 0) : 0;
-                applyPassivaPositivoNegativo(inputId, "system.status.percep-pas", () => val, () => pos, () => neg);
+            if (inputId === "percep-pas-positivo" || inputId === "percep-pas-negativo") {
+                applyPassivaTempAbsoluto(inputId, "percep-pas", (ov) => this.calculatePercepPas(null, null, null, null, ov));
                 return;
             }
-            if (inputId === "alt-esquiva-pas-positivo" || inputId === "alt-esquiva-pas-negativo") {
-                const val = typeof ep === "object" ? (ep?.value ?? 0) : (ep ?? 0);
-                const pos = typeof ep === "object" ? (ep?.positivo ?? 0) : 0;
-                const neg = typeof ep === "object" ? (ep?.negativo ?? 0) : 0;
-                applyPassivaPositivoNegativo(inputId, "system.status.esquiva-pas", () => val, () => pos, () => neg);
+            if (inputId === "esquiva-pas-positivo" || inputId === "esquiva-pas-negativo") {
+                applyPassivaTempAbsoluto(inputId, "esquiva-pas", (ov) => this.calculateEsquivaPas(null, null, ov));
                 return;
             }
-            // Atributos: soma/subtrai do dados e acumula em positivo/negativo
-            const atributosAlt = ["forca", "constituicao", "destreza", "mobilidade", "mente", "moral"];
-            for (const atr of atributosAlt) {
-                const posId = `alt-${atr}-positivo`;
-                const negId = `alt-${atr}-negativo`;
-                if (inputId === posId || inputId === negId) {
-                    const currentDados = this.actor.system?.atributos?.[atr]?.dados ?? 1;
-                    const currentPos = this.actor.system?.atributos?.[atr]?.positivo ?? 0;
-                    const currentNeg = this.actor.system?.atributos?.[atr]?.negativo ?? 0;
-                    const isPositivo = inputId === posId;
-                    const newDados = isPositivo ? currentDados + delta : Math.max(0, currentDados - delta);
-                    this.actor.update({
-                        [`system.atributos.${atr}.dados`]: newDados,
-                        [`system.atributos.${atr}.positivo`]: isPositivo ? currentPos + delta : currentPos,
-                        [`system.atributos.${atr}.negativo`]: isPositivo ? currentNeg : currentNeg + delta
-                    });
-                    element.val(0);
-                    return;
+            const atributosLista = ["forca", "constituicao", "destreza", "mobilidade", "mente", "moral"];
+            const mAttr = typeof inputId === "string"
+                ? inputId.match(/^atributos-(forca|constituicao|destreza|mobilidade|mente|moral)-(base|positivo|negativo|total)$/)
+                : null;
+            if (mAttr) {
+                const atr = mAttr[1];
+                const field = mAttr[2];
+                const partial = {};
+                const num = parseInt(value, 10) || 0;
+                if (field === "total") partial.value = num;
+                else partial[field] = num;
+                const upd = this.calculateAtributo(atr, partial);
+                if (Object.keys(upd).length) this.actor.update(upd);
+                const pathKey = `system.atributos.${atr}.${field}`;
+                if (upd[pathKey] !== undefined) element.val(String(upd[pathKey]));
+                else if (field === "total" && upd[`system.atributos.${atr}.value`] !== undefined) {
+                    element.val(String(upd[`system.atributos.${atr}.value`]));
+                } else {
+                    element.val(String(num));
                 }
+                return;
+            }
+            const mDados = typeof inputId === "string"
+                ? inputId.match(/^dados-(forca|constituicao|destreza|mobilidade|mente|moral)-(positivo|negativo|total)$/)
+                : null;
+            if (mDados) {
+                const atr = mDados[1];
+                const field = mDados[2];
+                const partial = {};
+                const num = parseInt(value, 10) || 0;
+                if (field === "total") partial.value = num;
+                else partial[field] = num;
+                const upd = this.calculateDados(atr, partial);
+                if (Object.keys(upd).length) this.actor.update(upd);
+                const pathKey = `system.dados.${atr}.${field}`;
+                if (upd[pathKey] !== undefined) element.val(String(upd[pathKey]));
+                else if (field === "total" && upd[`system.dados.${atr}.value`] !== undefined) {
+                    element.val(String(upd[`system.dados.${atr}.value`]));
+                } else {
+                    element.val(String(num));
+                }
+                return;
+            }
+            if (atributosLista.some((a) => inputId === `input-${a}`)) {
+                const atr = atributosLista.find((a) => inputId === `input-${a}`);
+                const upd = this.calculateAtributo(atr, { value: parseInt(value, 10) || 0 });
+                if (Object.keys(upd).length) this.actor.update(upd);
+                if (upd[`system.atributos.${atr}.value`] !== undefined) {
+                    element.val(String(upd[`system.atributos.${atr}.value`]));
+                }
+                return;
             }
 
             // Map input IDs to actor system paths (v10+)
@@ -1051,16 +1168,11 @@ export default class jogadorSheet extends ActorSheet {
                 "input-geas": "system.informacoes.geas",
                 "input-vida": "system.status.vida.value",
                 "input-estamina": "system.status.estamina.value",
+                "input-estamina-base": "system.status.estamina.base",
                 "input-psique": "system.status.psique.value",
                 "input-resist-pas": "system.status.resist-pas",
                 "input-percep-pas": "system.status.percep-pas",
                 "input-esquiva-pas": "system.status.esquiva-pas",
-                "input-forca": "system.atributos.forca.value",
-                "input-constituicao": "system.atributos.constituicao.value",
-                "input-destreza": "system.atributos.destreza.value",
-                "input-mobilidade": "system.atributos.mobilidade.value",
-                "input-mente": "system.atributos.mente.value",
-                "input-moral": "system.atributos.moral.value",
                 "input-dano-recebido": "system.combate.dano.recebido",
                 "input-dano-psique": "system.combate.dano.psique",
                 "input-cura": "system.combate.recuperacao.vida",
@@ -1083,119 +1195,11 @@ export default class jogadorSheet extends ActorSheet {
                 "text-ate-aonde-iria": "system.demais-informacoes.ate-aonde-iria",
                 "text-nascimento-mestica": "system.demais-informacoes.nascimento-mestica",
                 "text-anotacoes": "system.demais-informacoes.anotacoes",
-
-                // Campos de override na aba Alterações (não disparam cálculos automáticos)
-                "alt-vida-max": "system.status.vida.max",
-                "alt-vida-value": "system.status.vida.value",
-                "alt-estamina-max": "system.status.estamina.max",
-                "alt-estamina-value": "system.status.estamina.value",
-                "alt-psique-max": "system.status.psique.max",
-                "alt-psique-value": "system.status.psique.value",
-                "alt-resist-pas": "system.status.resist-pas.value",
-                "alt-percep-pas": "system.status.percep-pas.value",
-                "alt-esquiva-pas": "system.status.esquiva-pas.value",
-                "alt-energia-max": "system.mestica.energia.max",
-                "alt-energia-value": "system.mestica.energia.value",
-                "alt-canalizacao-max": "system.mestica.canalizacao.max",
-                "alt-canalizacao-value": "system.mestica.canalizacao.value",
-                "alt-nome": "system.informacoes.nome",
-                "alt-idade": "system.informacoes.idade",
-                "alt-data-nascimento": "system.informacoes.data-nascimento",
-                "alt-data-atual": "system.informacoes.data-atual",
-                "alt-altura": "system.informacoes.altura",
-                "alt-peso": "system.informacoes.peso",
-                "alt-mao-dominante": "system.informacoes.mao-dominante",
-                "alt-dinheiro": "system.informacoes.dinheiro",
-                "alt-moradia": "system.informacoes.moradia",
-                "alt-geas": "system.informacoes.geas",
-                "alt-mestica-nome": "system.mestica.nome",
-                "alt-mestica-idade": "system.mestica.idade",
-                "alt-mestica-forma": "system.mestica.forma",
-                "alt-mestica-afinidade": "system.mestica.afinidade",
-                "alt-mestica-peso": "system.mestica.peso",
-                "alt-mestica-dano": "system.mestica.dano",
-                "alt-forca-value": "system.atributos.forca.value",
-                "alt-forca-dados": "system.atributos.forca.dados",
-                "alt-constituicao-value": "system.atributos.constituicao.value",
-                "alt-constituicao-dados": "system.atributos.constituicao.dados",
-                "alt-destreza-value": "system.atributos.destreza.value",
-                "alt-destreza-dados": "system.atributos.destreza.dados",
-                "alt-mobilidade-value": "system.atributos.mobilidade.value",
-                "alt-mobilidade-dados": "system.atributos.mobilidade.dados",
-                "alt-mente-value": "system.atributos.mente.value",
-                "alt-mente-dados": "system.atributos.mente.dados",
-                "alt-moral-value": "system.atributos.moral.value",
-                "alt-moral-dados": "system.atributos.moral.dados",
-                "alt-dano-recebido": "system.combate.dano.recebido",
-                "alt-dano-estamina": "system.combate.dano.estamina",
-                "alt-dano-psique": "system.combate.dano.psique",
-                "alt-dano-total": "system.combate.dano.total",
-                "alt-dano-porcentagem": "system.combate.dano.porcentagem",
-                "alt-recup-vida": "system.combate.recuperacao.vida",
-                "alt-recup-estamina": "system.combate.recuperacao.estamina",
-                "alt-recup-psique": "system.combate.recuperacao.psique",
-                "alt-equip-esquerda": "system.equipamento.esquerda",
-                "alt-equip-direita": "system.equipamento.direita",
-                "alt-equip-cabeca": "system.equipamento.cabeca",
-                "alt-equip-tronco": "system.equipamento.tronco",
-                "alt-equip-inferiores": "system.equipamento.inferiores",
-                "alt-equip-rapido": "system.equipamento.rapido",
-                "alt-inventario": "system.inventario",
-                "alt-peculiaridades": "system.mestica.peculiaridades",
-                "alt-tecnicas": "system.mestica.tecnicas"
             };
 
             const updatePath = fieldMap[inputId];
             if (updatePath) {
                 const updateObj = { [updatePath]: value };
-                const valueInt = parseInt(value, 10) || 0;
-
-                // ========== CÁLCULOS PARA ATRIBUTOS ==========
-                const atributosLista = ['forca', 'constituicao', 'destreza', 'mobilidade', 'mente', 'moral'];
-                if (atributosLista.some(atr => inputId === `input-${atr}`)) {
-                    // Calcula dados do atributo: 1 + (valor / 4) arredondado para baixo
-                    const dados = 1 + Math.trunc(valueInt / 4);
-                    const atributo = inputId.replace("input-", "");
-                    updateObj[`system.atributos.${atributo}.dados`] = dados;
-
-                    // Se for constituição, também calcula vida máxima
-                    if (atributo === 'constituicao') {
-                        const vida = this.calculateVidaMax(valueInt);
-                        updateObj['system.status.vida.max'] = vida.max;
-                        updateObj['system.status.vida.value'] = vida.value;
-                        if (vida.energiaMax !== null) {
-                            updateObj['system.mestica.energia.max'] = vida.energiaMax;
-                            updateObj['system.mestica.energia.value'] = vida.energiaValue;
-                        }
-                    }
-
-                    // Recalculate passives using helper functions
-                    if (atributo === 'forca' || atributo === 'constituicao') {
-                        const forcaValue = atributo === 'forca' ? valueInt : (this.actor.system.atributos.forca.value || 0);
-                        const constituicaoValue = atributo === 'constituicao' ? valueInt : (this.actor.system.atributos.constituicao.value || 0);
-                        updateObj['system.status.resist-pas.value'] = this.calculateResistenciaPas(forcaValue, constituicaoValue);
-                    }
-
-                    if (atributo === 'destreza' || atributo === 'mente') {
-                        const destrezaValue = atributo === 'destreza' ? valueInt : (this.actor.system.atributos.destreza.value || 0);
-                        const menteValue = atributo === 'mente' ? valueInt : (this.actor.system.atributos.mente.value || 0);
-                        updateObj['system.status.percep-pas.value'] = this.calculatePercepPas(destrezaValue, menteValue);
-                    }
-
-                    if (atributo === 'mobilidade') {
-                        updateObj['system.status.esquiva-pas.value'] = this.calculateEsquivaPas(valueInt);
-                    }
-
-                    if (atributo === 'constituicao' || atributo === 'destreza') {
-                        const constituicaoValue = atributo === 'constituicao' ? valueInt : (this.actor.system.atributos.constituicao.value || 0);
-                        const destrezaValue = atributo === 'destreza' ? valueInt : (this.actor.system.atributos.destreza.value || 0);
-                        const est = this.calculateEstamina(constituicaoValue, destrezaValue);
-                        updateObj['system.status.estamina.bonus'] = est.bonus;
-                        updateObj['system.status.estamina.max'] = est.max;
-                        updateObj['system.status.estamina.value'] = est.value;
-                    }
-                }
-
                 this.actor.update(updateObj);
             }
         });
