@@ -53,13 +53,13 @@
 }
 
 .peculiaridades {
-    height: 30%;
+    height: 200px;
     box-sizing: border-box;
     margin-bottom: 80px;
 }
 
 .tecnicas {
-    height: 45%;
+    height: 350px;
     box-sizing: border-box;
 }
 
